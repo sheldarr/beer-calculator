@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 
-import calculatePlatoToOG from '../utils/calculatePlatoToOG';
+import calculatePlatoToOg from '../utils/calculatePlatoToOg';
 
 const StyledPaper = styled(Paper)`
   margin-bottom: 2rem;
@@ -25,7 +25,7 @@ interface Malt {
 
 const Home: NextPage = () => {
   const [plato, setPlato] = useState(12);
-  const [og, setOg] = useState(calculatePlatoToOG(plato));
+  const [og, setOg] = useState(calculatePlatoToOg(plato));
   const [malts, setMalts] = useState<Malt[]>([
     {
       ebc: 3.6,
