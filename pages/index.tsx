@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
@@ -9,7 +9,15 @@ import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 
-import calculatePlatoToOg from '../utils/calculatePlatoToOg';
+import {
+  calculatePlatoToOg,
+  ebcToSrm,
+  kgToLbs,
+  lToGal,
+  mcuToSrmMorey,
+  srmToEbc,
+  srmToLovibond,
+} from '../utils/unitConverters';
 
 const StyledPaper = styled(Paper)`
   margin-bottom: 2rem;
@@ -35,23 +43,21 @@ const Home: NextPage = () => {
 
   const [batchVolume] = useState(20);
 
+  useEffect(() => {
+    setOg(calculatePlatoToOg(plato));
+  }, [plato]);
+
   const mcu = malts.reduce((mcu, malt) => {
-    const srm = malt.ebc * 0.508;
-    const lovibond = (srm + 0.76) / 1.3546;
-
-    console.log('SRM', srm);
-    console.log('°Lovibond', lovibond);
-
-    const weightInLbs = malt.weight * 2.20462;
-    console.log('lbs', weightInLbs);
-    const batchVolumeInGaloons = batchVolume * 0.264172;
-    console.log('gal', batchVolumeInGaloons);
+    const srm = ebcToSrm(malt.ebc);
+    const lovibond = srmToLovibond(srm);
+    const weightInLbs = kgToLbs(malt.weight);
+    const batchVolumeInGaloons = lToGal(batchVolume);
 
     return mcu + (lovibond * weightInLbs) / batchVolumeInGaloons;
   }, 0);
 
-  const srmMorey = 1.4922 * Math.pow(mcu, 0.6859);
-  const ebcMorey = srmMorey * 1.97;
+  const srmMorey = mcuToSrmMorey(mcu);
+  const ebcMorey = srmToEbc(srmMorey);
 
   const addMalt = () => {
     setMalts([
@@ -73,30 +79,65 @@ const Home: NextPage = () => {
         <StyledPaper>
           <Grid container spacing={4}>
             <Grid container item spacing={1}>
-              <Grid item>
-                <TextField
-                  label="°Plato"
-                  onChange={(event) => {
-                    setPlato(Number(event.target.value));
-                  }}
-                  type="number"
-                  value={plato}
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  disabled
-                  label="OG"
-                  type="number"
-                  value={og.toFixed(3)}
-                />
+              <h2>Parameters</h2>
+              <Grid container item spacing={1}>
+                <Grid item>
+                  <TextField
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">l</InputAdornment>
+                      ),
+                    }}
+                    label="Batch volume"
+                    type="number"
+                    value={batchVolume.toFixed(3)}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">°P</InputAdornment>
+                      ),
+                    }}
+                    label="Density"
+                    onChange={(event) => {
+                      setPlato(Number(event.target.value));
+                    }}
+                    type="number"
+                    value={plato}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    disabled
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">OG</InputAdornment>
+                      ),
+                    }}
+                    label="Density"
+                    type="number"
+                    value={og.toFixed(3)}
+                  />
+                </Grid>
               </Grid>
             </Grid>
             <Grid container item spacing={2}>
+              <h2>Malts</h2>
               {malts.map((malt, index) => (
                 <Grid container item key={index} spacing={1}>
                   <Grid item>
-                    <TextField label="EBC" type="number" value={malt.ebc} />
+                    <TextField
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">EBC</InputAdornment>
+                        ),
+                      }}
+                      label="Color"
+                      type="number"
+                      value={malt.ebc}
+                    />
                   </Grid>
                   <Grid item>
                     <TextField
@@ -110,6 +151,32 @@ const Home: NextPage = () => {
                       value={malt.weight}
                     />
                   </Grid>
+                  <Grid item>
+                    <TextField
+                      disabled
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">lbs</InputAdornment>
+                        ),
+                      }}
+                      label="Weight"
+                      type="number"
+                      value={kgToLbs(malt.weight).toFixed(2)}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <TextField
+                      disabled
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">°L</InputAdornment>
+                        ),
+                      }}
+                      label="Color"
+                      type="number"
+                      value={srmToLovibond(ebcToSrm(malt.ebc)).toFixed(1)}
+                    />
+                  </Grid>
                 </Grid>
               ))}
               <Grid item>
@@ -119,24 +186,27 @@ const Home: NextPage = () => {
               </Grid>
             </Grid>
             <Grid container item spacing={1}>
-              <Grid item>
-                <TextField disabled label="MCU" type="number" value={mcu} />
-              </Grid>
-              <Grid item>
-                <TextField
-                  disabled
-                  label="SRM Morey"
-                  type="number"
-                  value={srmMorey}
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  disabled
-                  label="EBC Morey"
-                  type="number"
-                  value={ebcMorey}
-                />
+              <h2>Color</h2>
+              <Grid container item spacing={1}>
+                <Grid item>
+                  <TextField disabled label="MCU" type="number" value={mcu} />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    disabled
+                    label="SRM Morey"
+                    type="number"
+                    value={srmMorey}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    disabled
+                    label="EBC Morey"
+                    type="number"
+                    value={ebcMorey}
+                  />
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
