@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
+import Avatar from '@material-ui/core/Avatar';
 
 import {
   calculatePlatoToOg,
@@ -19,11 +20,21 @@ import {
   srmToLovibond,
 } from '../utils/unitConverters';
 
+import getHexColorForSrm from '../utils/getHexColorForSrm';
+
 const StyledPaper = styled(Paper)`
   margin-bottom: 2rem;
   margin-top: 2rem;
   min-height: calc(100vh - 4rem - 5rem);
   padding: 2rem;
+`;
+
+interface SrmAvatarProps {
+  srmHexColor: string;
+}
+
+const SrmAvatar = styled(Avatar)<SrmAvatarProps>`
+  background-color: ${(props) => props.srmHexColor} !important;
 `;
 
 interface Malt {
@@ -206,6 +217,11 @@ const Home: NextPage = () => {
                     type="number"
                     value={ebcMorey}
                   />
+                </Grid>
+                <Grid item>
+                  <SrmAvatar srmHexColor={getHexColorForSrm(srmMorey)}>
+                    {Math.round(srmMorey)}
+                  </SrmAvatar>
                 </Grid>
               </Grid>
             </Grid>

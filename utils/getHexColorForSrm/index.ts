@@ -1,6 +1,9 @@
 /* eslint-disable sort-keys */
 
-const srmHexColors = {
+const MIN_SRM_VALUE = 1;
+const MAX_SRM_VALUE = 40;
+
+const hexColorsForSrm = {
   1: '#ffe699',
   2: '#ffd878',
   3: '#ffca5a',
@@ -43,4 +46,14 @@ const srmHexColors = {
   40: '#36080a',
 };
 
-export default srmHexColors;
+const getHexColorForSrm = (srm: number) => {
+  const roundedSrm = Math.round(srm);
+  const clampedSrm = Math.min(
+    Math.max(roundedSrm, MIN_SRM_VALUE),
+    MAX_SRM_VALUE,
+  );
+
+  return hexColorsForSrm[clampedSrm];
+};
+
+export default getHexColorForSrm;
