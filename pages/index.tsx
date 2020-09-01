@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
@@ -13,7 +13,6 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from '@material-ui/core/IconButton';
 
 import {
-  calculatePlatoToOg,
   ebcToSrm,
   kgToLbs,
   lToGal,
@@ -23,6 +22,7 @@ import {
 } from '../utils/unitConverters';
 
 import getHexColorForSrm from '../utils/getHexColorForSrm';
+import Params from './components/Params';
 
 const StyledPaper = styled(Paper)`
   margin-bottom: 2rem;
@@ -45,8 +45,7 @@ interface Malt {
 }
 
 const Home: NextPage = () => {
-  const [plato, setPlato] = useState(12);
-  const [og, setOg] = useState(calculatePlatoToOg(plato));
+  const [density, setDensity] = useState(12);
   const [malts, setMalts] = useState<Malt[]>([
     {
       ebc: 3.6,
@@ -55,10 +54,6 @@ const Home: NextPage = () => {
   ]);
 
   const [batchVolume, setBatchVolume] = useState(20);
-
-  useEffect(() => {
-    setOg(calculatePlatoToOg(plato));
-  }, [plato]);
 
   const mcu = malts.reduce((mcu, malt) => {
     const srm = ebcToSrm(malt.ebc);
@@ -114,54 +109,12 @@ const Home: NextPage = () => {
       <Container>
         <StyledPaper>
           <Grid container spacing={4}>
-            <Grid container item spacing={1}>
-              <h2>Parameters</h2>
-              <Grid container item spacing={1}>
-                <Grid item>
-                  <TextField
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">l</InputAdornment>
-                      ),
-                    }}
-                    label="Batch volume"
-                    onChange={(event) => {
-                      setBatchVolume(Number(event.target.value));
-                    }}
-                    type="number"
-                    value={batchVolume.toFixed(3)}
-                  />
-                </Grid>
-                <Grid item>
-                  <TextField
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">°P</InputAdornment>
-                      ),
-                    }}
-                    label="Density"
-                    onChange={(event) => {
-                      setPlato(Number(event.target.value));
-                    }}
-                    type="number"
-                    value={plato}
-                  />
-                </Grid>
-                <Grid item>
-                  <TextField
-                    disabled
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">OG</InputAdornment>
-                      ),
-                    }}
-                    label="Density"
-                    type="number"
-                    value={og.toFixed(3)}
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
+            <Params
+              batchVolume={batchVolume}
+              density={density}
+              onBatchVolumeChange={setBatchVolume}
+              onDensityChange={setDensity}
+            />
             <Grid container item spacing={2}>
               <Grid item>
                 <h2>Malts</h2>
