@@ -54,7 +54,7 @@ const Home: NextPage = () => {
     },
   ]);
 
-  const [batchVolume] = useState(20);
+  const [batchVolume, setBatchVolume] = useState(20);
 
   useEffect(() => {
     setOg(calculatePlatoToOg(plato));
@@ -125,6 +125,9 @@ const Home: NextPage = () => {
                       ),
                     }}
                     label="Batch volume"
+                    onChange={(event) => {
+                      setBatchVolume(Number(event.target.value));
+                    }}
                     type="number"
                     value={batchVolume.toFixed(3)}
                   />
