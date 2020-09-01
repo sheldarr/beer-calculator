@@ -10,6 +10,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import Avatar from '@material-ui/core/Avatar';
 import DeleteIcon from '@material-ui/icons/Delete';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from '@material-ui/core/IconButton';
 
 import {
@@ -167,9 +168,9 @@ const Home: NextPage = () => {
                 <h2>Malts</h2>
               </Grid>
               <Grid item>
-                <Button color="primary" onClick={addMalt} variant="contained">
-                  Add malt
-                </Button>
+                <IconButton color="primary" onClick={addMalt}>
+                  <AddCircleIcon />
+                </IconButton>
               </Grid>
               {malts.map((malt, index) => (
                 <Grid container item key={index} spacing={1}>
