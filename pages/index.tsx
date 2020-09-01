@@ -9,6 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import Avatar from '@material-ui/core/Avatar';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
 
 import {
   calculatePlatoToOg,
@@ -95,6 +97,14 @@ const Home: NextPage = () => {
     setMalts(newMalts);
   };
 
+  const removeMalt = (index: number) => {
+    const newMalts = malts.filter((malt, maltIndex) => {
+      return maltIndex !== index;
+    });
+
+    setMalts(newMalts);
+  };
+
   return (
     <div>
       <Head>
@@ -150,7 +160,14 @@ const Home: NextPage = () => {
               </Grid>
             </Grid>
             <Grid container item spacing={2}>
-              <h2>Malts</h2>
+              <Grid item>
+                <h2>Malts</h2>
+              </Grid>
+              <Grid item>
+                <Button color="primary" onClick={addMalt} variant="contained">
+                  Add malt
+                </Button>
+              </Grid>
               {malts.map((malt, index) => (
                 <Grid container item key={index} spacing={1}>
                   <Grid item>
@@ -215,26 +232,37 @@ const Home: NextPage = () => {
                       value={srmToLovibond(ebcToSrm(malt.ebc)).toFixed(1)}
                     />
                   </Grid>
+                  <Grid item>
+                    <IconButton
+                      color="secondary"
+                      onClick={() => {
+                        removeMalt(index);
+                      }}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </Grid>
                 </Grid>
               ))}
-              <Grid item>
-                <Button color="primary" onClick={addMalt} variant="contained">
-                  Add malt
-                </Button>
-              </Grid>
+              <Grid item></Grid>
             </Grid>
             <Grid container item spacing={1}>
               <h2>Color</h2>
               <Grid container item spacing={1}>
                 <Grid item>
-                  <TextField disabled label="MCU" type="number" value={mcu} />
+                  <TextField
+                    disabled
+                    label="MCU"
+                    type="number"
+                    value={mcu.toFixed(2)}
+                  />
                 </Grid>
                 <Grid item>
                   <TextField
                     disabled
                     label="SRM Morey"
                     type="number"
-                    value={srmMorey}
+                    value={srmMorey.toFixed(2)}
                   />
                 </Grid>
                 <Grid item>
@@ -242,7 +270,7 @@ const Home: NextPage = () => {
                     disabled
                     label="EBC Morey"
                     type="number"
-                    value={ebcMorey}
+                    value={ebcMorey.toFixed(2)}
                   />
                 </Grid>
                 <Grid item>
