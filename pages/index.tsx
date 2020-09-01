@@ -80,6 +80,21 @@ const Home: NextPage = () => {
     ]);
   };
 
+  const updateMalt = (index: number, newMalt: Malt) => {
+    const newMalts = malts.map((malt, maltIndex) => {
+      if (maltIndex === index) {
+        return {
+          ...malt,
+          ...newMalt,
+        };
+      }
+
+      return malt;
+    });
+
+    setMalts(newMalts);
+  };
+
   return (
     <div>
       <Head>
@@ -146,6 +161,12 @@ const Home: NextPage = () => {
                         ),
                       }}
                       label="Color"
+                      onChange={(event) => {
+                        updateMalt(index, {
+                          ...malt,
+                          ebc: Number(event.target.value),
+                        });
+                      }}
                       type="number"
                       value={malt.ebc}
                     />
@@ -158,6 +179,12 @@ const Home: NextPage = () => {
                         ),
                       }}
                       label="Weight"
+                      onChange={(event) => {
+                        updateMalt(index, {
+                          ...malt,
+                          weight: Number(event.target.value),
+                        });
+                      }}
                       type="number"
                       value={malt.weight}
                     />
