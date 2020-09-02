@@ -5,21 +5,10 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import styled from 'styled-components';
 import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import Avatar from '@material-ui/core/Avatar';
 
-import {
-  ebcToSrm,
-  kgToLbs,
-  lToGal,
-  mcuToSrmMorey,
-  srmToEbc,
-  srmToLovibond,
-} from '../utils/unitConverters';
-
-import getHexColorForSrm from '../utils/getHexColorForSrm';
-import Params from './components/Params';
+import Color from './components/Color';
 import Malts, { Malt } from './components/Malts';
+import Params from './components/Params';
 
 const StyledPaper = styled(Paper)`
   margin-bottom: 2rem;
@@ -28,15 +17,8 @@ const StyledPaper = styled(Paper)`
   padding: 2rem;
 `;
 
-interface SrmAvatarProps {
-  srmHexColor: string;
-}
-
-const SrmAvatar = styled(Avatar)<SrmAvatarProps>`
-  background-color: ${(props) => props.srmHexColor} !important;
-`;
-
 const Home: NextPage = () => {
+  const [batchVolume, setBatchVolume] = useState(20);
   const [density, setDensity] = useState(12);
   const [malts, setMalts] = useState<Malt[]>([
     {
@@ -44,20 +26,6 @@ const Home: NextPage = () => {
       weight: 5,
     },
   ]);
-
-  const [batchVolume, setBatchVolume] = useState(20);
-
-  const mcu = malts.reduce((mcu, malt) => {
-    const srm = ebcToSrm(malt.ebc);
-    const lovibond = srmToLovibond(srm);
-    const weightInLbs = kgToLbs(malt.weight);
-    const batchVolumeInGaloons = lToGal(batchVolume);
-
-    return mcu + (lovibond * weightInLbs) / batchVolumeInGaloons;
-  }, 0);
-
-  const srmMorey = mcuToSrmMorey(mcu);
-  const ebcMorey = srmToEbc(srmMorey);
 
   return (
     <div>
@@ -79,39 +47,8 @@ const Home: NextPage = () => {
             <Grid item>
               <Malts malts={malts} onMaltsChange={setMalts} />
             </Grid>
-            <Grid container item spacing={1}>
-              <h2>Color</h2>
-              <Grid container item spacing={1}>
-                <Grid item>
-                  <TextField
-                    disabled
-                    label="MCU"
-                    type="number"
-                    value={mcu.toFixed(2)}
-                  />
-                </Grid>
-                <Grid item>
-                  <TextField
-                    disabled
-                    label="SRM Morey"
-                    type="number"
-                    value={srmMorey.toFixed(2)}
-                  />
-                </Grid>
-                <Grid item>
-                  <TextField
-                    disabled
-                    label="EBC Morey"
-                    type="number"
-                    value={ebcMorey.toFixed(2)}
-                  />
-                </Grid>
-                <Grid item>
-                  <SrmAvatar srmHexColor={getHexColorForSrm(srmMorey)}>
-                    {Math.round(srmMorey)}
-                  </SrmAvatar>
-                </Grid>
-              </Grid>
+            <Grid item>
+              <Color batchVolume={batchVolume} malts={malts} />
             </Grid>
           </Grid>
         </StyledPaper>
