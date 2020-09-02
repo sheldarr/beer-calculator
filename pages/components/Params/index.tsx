@@ -21,7 +21,7 @@ const Params: React.FunctionComponent<Props> = ({
   calculatePlatoToOg(density);
 
   return (
-    <Grid container item spacing={2}>
+    <Grid container spacing={2}>
       <Grid item xs={12}>
         <h2>Parameters</h2>
       </Grid>
