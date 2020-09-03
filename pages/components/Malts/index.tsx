@@ -58,10 +58,11 @@ const Malts: React.FunctionComponent<Props> = ({ malts, onMaltsChange }) => {
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12}>
-        <h2>Malts</h2>
-      </Grid>
-      <Grid item>
+      <Grid container item xs={12}>
+        <Grid item>
+          <h2>Malts</h2>
+        </Grid>
+        <Grid item></Grid>
         <IconButton color="primary" onClick={addMalt}>
           <AddCircleIcon />
         </IconButton>
