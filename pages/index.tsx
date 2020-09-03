@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import Grid from '@material-ui/core/Grid';
 
 import Color from './components/Color';
+import Hops, { Hop } from './components/Hops';
 import Malts, { Malt } from './components/Malts';
 import Params from './components/Params';
 
@@ -24,6 +25,12 @@ const Home: NextPage = () => {
     {
       ebc: 3.6,
       weight: 5,
+    },
+  ]);
+  const [hops, setHops] = useState<Hop[]>([
+    {
+      alphaAcids: 10,
+      weight: 30,
     },
   ]);
 
@@ -46,6 +53,9 @@ const Home: NextPage = () => {
             </Grid>
             <Grid item>
               <Malts malts={malts} onMaltsChange={setMalts} />
+            </Grid>
+            <Grid item>
+              <Hops hops={hops} onHopsChange={setHops} />
             </Grid>
             <Grid item>
               <Color batchVolume={batchVolume} malts={malts} />
