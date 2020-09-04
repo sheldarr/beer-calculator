@@ -30,18 +30,25 @@ const Params: React.FunctionComponent<Props> = ({
           InputProps={{
             endAdornment: <InputAdornment position="end">l</InputAdornment>,
           }}
+          inputProps={{
+            min: 0,
+          }}
           label="Batch volume"
           onChange={(event) => {
             onBatchVolumeChange(Number(event.target.value));
           }}
           type="number"
-          value={batchVolume.toFixed(3)}
+          value={batchVolume.toFixed(2)}
         />
       </Grid>
       <Grid item>
         <TextField
           InputProps={{
             endAdornment: <InputAdornment position="end">°P</InputAdornment>,
+          }}
+          inputProps={{
+            min: 0,
+            step: 0.5,
           }}
           label="Density"
           onChange={(event) => {

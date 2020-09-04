@@ -68,6 +68,9 @@ const Hops: React.FunctionComponent<Props> = ({ hops, onHopsChange }) => {
               InputProps={{
                 endAdornment: <InputAdornment position="end">g</InputAdornment>,
               }}
+              inputProps={{
+                min: 0,
+              }}
               label="Weight"
               onChange={(event) => {
                 updateHop(index, {
@@ -85,6 +88,7 @@ const Hops: React.FunctionComponent<Props> = ({ hops, onHopsChange }) => {
                 endAdornment: <InputAdornment position="end">%</InputAdornment>,
               }}
               inputProps={{
+                min: 0,
                 step: 0.1,
               }}
               label="Alpha acids"

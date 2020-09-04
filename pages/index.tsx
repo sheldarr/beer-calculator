@@ -19,7 +19,7 @@ const StyledPaper = styled(Paper)`
 `;
 
 const Home: NextPage = () => {
-  const [batchVolume, setBatchVolume] = useState(20);
+  const [batchVolume, setBatchVolume] = useState(24);
   const [density, setDensity] = useState(12);
   const [malts, setMalts] = useState<Malt[]>([
     {

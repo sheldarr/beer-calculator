@@ -76,6 +76,9 @@ const Malts: React.FunctionComponent<Props> = ({ malts, onMaltsChange }) => {
                   <InputAdornment position="end">EBC</InputAdornment>
                 ),
               }}
+              inputProps={{
+                min: 1,
+              }}
               label="Color"
               onChange={(event) => {
                 updateMalt(index, {
@@ -93,6 +96,9 @@ const Malts: React.FunctionComponent<Props> = ({ malts, onMaltsChange }) => {
                 endAdornment: (
                   <InputAdornment position="end">kg</InputAdornment>
                 ),
+              }}
+              inputProps={{
+                min: 0,
               }}
               label="Weight"
               onChange={(event) => {
