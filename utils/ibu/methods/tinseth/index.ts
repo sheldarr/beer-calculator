@@ -1,3 +1,5 @@
+import { Grams, Liters, Minutes } from '../../types';
+
 const ADDED_ALPHA_ACIDS_FACTOR = 1000;
 
 const BIGNESS_FACTOR = 1.65;
@@ -5,10 +7,6 @@ const BIGNESS_BASE = 0.000125;
 
 const BOIL_CURVE_SHAPE = 0.04;
 const BOIL_MAX_UTILIZATION = 4.15;
-
-type Grams = number;
-type Liters = number;
-type Minutes = number;
 
 interface TinsethParams {
   batchVolume: Liters;
