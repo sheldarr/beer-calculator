@@ -1,4 +1,4 @@
-import { Grams, Liters, Minutes } from '../../types';
+import { IbuParams } from '../../types';
 
 const ADDED_ALPHA_ACIDS_FACTOR = 1000;
 
@@ -8,21 +8,13 @@ const BIGNESS_BASE = 0.000125;
 const BOIL_CURVE_SHAPE = 0.04;
 const BOIL_MAX_UTILIZATION = 4.15;
 
-interface TinsethParams {
-  batchVolume: Liters;
-  boilTime: Minutes;
-  decimalAlphaAcids: number;
-  hopWeight: Grams;
-  originalGravity: number;
-}
-
 const calculateAddedAlphaAcids = (
-  decimalAlphaAcids: number,
+  alphaAcids: number,
   hopWeight: number,
   batchVolume: number,
 ) => {
   return (
-    (decimalAlphaAcids * hopWeight * ADDED_ALPHA_ACIDS_FACTOR) / batchVolume
+    (alphaAcids * 100 * hopWeight * ADDED_ALPHA_ACIDS_FACTOR) / batchVolume
   );
 };
 
@@ -44,15 +36,15 @@ const calculateDecimalAlphaAcidUtilization = (
 };
 
 const calculateTinseth = ({
+  alphaAcids,
   batchVolume,
   boilTime,
-  decimalAlphaAcids,
   hopWeight,
   originalGravity,
-}: TinsethParams) => {
+}: IbuParams) => {
   return (
     calculateDecimalAlphaAcidUtilization(originalGravity, boilTime) *
-    calculateAddedAlphaAcids(decimalAlphaAcids, hopWeight, batchVolume)
+    calculateAddedAlphaAcids(alphaAcids, hopWeight, batchVolume)
   );
 };
 
