@@ -28,7 +28,7 @@ interface Props {
   malts: Malt[];
 }
 
-const Params: React.FunctionComponent<Props> = ({ batchVolume, malts }) => {
+const Color: React.FunctionComponent<Props> = ({ batchVolume, malts }) => {
   const mcu = malts.reduce((mcu, malt) => {
     const srm = ebcToSrm(malt.ebc);
     const lovibond = srmToLovibond(srm);
@@ -74,4 +74,4 @@ const Params: React.FunctionComponent<Props> = ({ batchVolume, malts }) => {
   );
 };
 
-export default Params;
+export default Color;
