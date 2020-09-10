@@ -7,15 +7,19 @@ import { calculatePlatoToOg } from '../../../utils/unitConverters';
 
 interface Props {
   batchVolume: number;
+  boilTime: number;
   density: number;
   onBatchVolumeChange: (batchVolume: number) => void;
+  onBoilTimeChange: (batchVolume: number) => void;
   onDensityChange: (density: number) => void;
 }
 
 const Params: React.FunctionComponent<Props> = ({
   batchVolume,
+  boilTime,
   density,
   onBatchVolumeChange,
+  onBoilTimeChange,
   onDensityChange,
 }) => {
   calculatePlatoToOg(density);
@@ -56,6 +60,22 @@ const Params: React.FunctionComponent<Props> = ({
           }}
           type="number"
           value={density}
+        />
+      </Grid>
+      <Grid item>
+        <TextField
+          InputProps={{
+            endAdornment: <InputAdornment position="end">min</InputAdornment>,
+          }}
+          inputProps={{
+            min: 0,
+          }}
+          label="Boil time"
+          onChange={(event) => {
+            onBoilTimeChange(Number(event.target.value));
+          }}
+          type="number"
+          value={boilTime}
         />
       </Grid>
       <Grid item>

@@ -20,6 +20,7 @@ const StyledPaper = styled(Paper)`
 
 const Home: NextPage = () => {
   const [batchVolume, setBatchVolume] = useState(24);
+  const [boilTime, setBoilTime] = useState(70);
   const [density, setDensity] = useState(12);
   const [malts, setMalts] = useState<Malt[]>([
     {
@@ -46,8 +47,10 @@ const Home: NextPage = () => {
             <Grid item>
               <Params
                 batchVolume={batchVolume}
+                boilTime={boilTime}
                 density={density}
                 onBatchVolumeChange={setBatchVolume}
+                onBoilTimeChange={setBoilTime}
                 onDensityChange={setDensity}
               />
             </Grid>
