@@ -6,8 +6,10 @@ import Paper from '@material-ui/core/Paper';
 import styled from 'styled-components';
 import Grid from '@material-ui/core/Grid';
 
+import { calculatePlatoToOg } from '../utils/unitConverters';
 import Color from './components/Color';
 import Hops, { Hop } from './components/Hops';
+import IBU from './components/IBU';
 import Malts, { Malt } from './components/Malts';
 import Params from './components/Params';
 
@@ -35,6 +37,8 @@ const Home: NextPage = () => {
     },
   ]);
 
+  const originalGravity = calculatePlatoToOg(density);
+
   return (
     <div>
       <Head>
@@ -57,8 +61,16 @@ const Home: NextPage = () => {
             <Grid item>
               <Malts malts={malts} onMaltsChange={setMalts} />
             </Grid>
-            <Grid item>
+            <Grid item xs={12}>
               <Hops hops={hops} onHopsChange={setHops} />
+            </Grid>
+            <Grid item>
+              <IBU
+                batchVolume={batchVolume}
+                boilTime={boilTime}
+                hops={hops}
+                originalGravity={originalGravity}
+              />
             </Grid>
             <Grid item>
               <Color batchVolume={batchVolume} malts={malts} />
