@@ -13,9 +13,7 @@ const calculateAddedAlphaAcids = (
   hopWeight: number,
   batchVolume: number,
 ) => {
-  return (
-    (alphaAcids * 100 * hopWeight * ADDED_ALPHA_ACIDS_FACTOR) / batchVolume
-  );
+  return (alphaAcids * hopWeight * ADDED_ALPHA_ACIDS_FACTOR) / batchVolume;
 };
 
 const calculateBignessFactor = (originalGravity: number) => {

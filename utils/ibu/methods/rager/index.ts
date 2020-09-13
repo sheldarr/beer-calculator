@@ -18,7 +18,7 @@ const calculateRager = ({
   originalGravity,
 }: IbuParams) => {
   return (
-    (hopWeight * calculateUtilization(boilTime) * alphaAcids * 1000) /
+    (hopWeight * calculateUtilization(boilTime) * alphaAcids * 10) /
     (batchVolume * (1 + calculateGravityAdjustment(originalGravity)))
   );
 };
