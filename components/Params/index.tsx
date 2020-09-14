@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 
-import { calculatePlatoToOg } from '../../../utils/unitConverters';
+import { calculatePlatoToOg } from '../../utils/unitConverters';
 
 interface Props {
   batchVolume: number;

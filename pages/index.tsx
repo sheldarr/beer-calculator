@@ -7,11 +7,11 @@ import styled from 'styled-components';
 import Grid from '@material-ui/core/Grid';
 
 import { calculatePlatoToOg } from '../utils/unitConverters';
-import Color from './components/Color';
-import Hops, { Hop } from './components/Hops';
-import IBU from './components/IBU';
-import Malts, { Malt } from './components/Malts';
-import Params from './components/Params';
+import Color from '../components/Color';
+import Hops, { Hop } from '../components/Hops';
+import IBU from '../components/IBU';
+import Malts, { Malt } from '../components/Malts';
+import Params from '../components/Params';
 
 const StyledPaper = styled(Paper)`
   margin-bottom: 2rem;

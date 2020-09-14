@@ -11,8 +11,8 @@ import {
   mcuToSrmMorey,
   srmToEbc,
   srmToLovibond,
-} from '../../../utils/unitConverters';
-import getHexColorForSrm from '../../../utils/getHexColorForSrm';
+} from '../../utils/unitConverters';
+import getHexColorForSrm from '../../utils/getHexColorForSrm';
 import { Malt } from '../Malts';
 
 interface SrmAvatarProps {

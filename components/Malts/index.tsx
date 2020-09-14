@@ -6,11 +6,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from '@material-ui/core/IconButton';
 
-import {
-  ebcToSrm,
-  kgToLbs,
-  srmToLovibond,
-} from '../../../utils/unitConverters';
+import { ebcToSrm, kgToLbs, srmToLovibond } from '../../utils/unitConverters';
 
 export interface Malt {
   ebc: number;

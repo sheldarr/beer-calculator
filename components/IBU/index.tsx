@@ -7,7 +7,7 @@ import {
   calculateTinseth,
   IbuParams,
   Minutes,
-} from '../../../utils/ibu';
+} from '../../utils/ibu';
 import { Hop } from '../Hops';
 
 interface Props {
