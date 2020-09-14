@@ -65,15 +65,15 @@ const Home: NextPage = () => {
               <Hops hops={hops} onHopsChange={setHops} />
             </Grid>
             <Grid item>
+              <Color batchVolume={batchVolume} malts={malts} />
+            </Grid>
+            <Grid item>
               <IBU
                 batchVolume={batchVolume}
                 boilTime={boilTime}
                 hops={hops}
                 originalGravity={originalGravity}
               />
-            </Grid>
-            <Grid item>
-              <Color batchVolume={batchVolume} malts={malts} />
             </Grid>
           </Grid>
         </StyledPaper>
