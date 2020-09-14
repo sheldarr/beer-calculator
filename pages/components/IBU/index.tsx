@@ -62,6 +62,14 @@ const IBU: React.FunctionComponent<Props> = ({
           value={ibuTinseth.toFixed(2)}
         />
       </Grid>
+      <Grid item>
+        <TextField
+          disabled
+          label="Average"
+          type="number"
+          value={((ibuRager + ibuTinseth) / 2).toFixed(2)}
+        />
+      </Grid>
     </Grid>
   );
 };
