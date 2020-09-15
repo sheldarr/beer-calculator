@@ -47,9 +47,6 @@ const Color: React.FunctionComponent<Props> = ({ batchVolume, malts }) => {
         <h2>Color</h2>
       </Grid>
       <Grid item>
-        <TextField disabled label="MCU" type="number" value={mcu.toFixed(2)} />
-      </Grid>
-      <Grid item>
         <TextField
           disabled
           label="SRM Morey"
