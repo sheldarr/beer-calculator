@@ -71,6 +71,7 @@ const Home: NextPage = () => {
             <Grid item>
               <IBU
                 batchVolume={batchVolume}
+                boilTime={boilTime}
                 hops={hops}
                 originalGravity={originalGravity}
               />

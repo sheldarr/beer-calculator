@@ -11,17 +11,24 @@ import {
   Tooltip,
 } from 'recharts';
 
-import { calculateRager, calculateTinseth, IbuParams } from '../../utils/ibu';
+import {
+  calculateRager,
+  calculateTinseth,
+  IbuParams,
+  Minutes,
+} from '../../utils/ibu';
 import { Hop } from '../Hops';
 
 interface Props {
   batchVolume: number;
+  boilTime: Minutes;
   hops: Hop[];
   originalGravity: number;
 }
 
 const IBU: React.FunctionComponent<Props> = ({
   batchVolume,
+  boilTime,
   hops,
   originalGravity,
 }) => {
@@ -49,10 +56,16 @@ const IBU: React.FunctionComponent<Props> = ({
   const ibuData = boilingMinutes.map((minute) => {
     const [ibuRager, ibuTinseth] = hops.reduce(
       ([ibuRager, ibuTinseth], hop) => {
+        const hopBoilingTime = minute - (boilTime - hop.boilTime);
+
+        if (hopBoilingTime < 0) {
+          return [ibuRager, ibuTinseth];
+        }
+
         const ibuParams: IbuParams = {
           alphaAcids: hop.alphaAcids / 100,
           batchVolume,
-          boilTime: minute,
+          boilTime: hopBoilingTime,
           hopWeight: hop.weight,
           originalGravity,
         };
