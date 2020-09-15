@@ -6,23 +6,32 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from '@material-ui/core/IconButton';
 
+import { Minutes } from '../../utils/ibu';
+
 export interface Hop {
   alphaAcids: number;
+  boilTime: Minutes;
   weight: number;
 }
 
 interface Props {
+  boilTime: Minutes;
   hops: Hop[];
   onHopsChange: (hops: Hop[]) => void;
 }
 
-const Hops: React.FunctionComponent<Props> = ({ hops, onHopsChange }) => {
+const Hops: React.FunctionComponent<Props> = ({
+  boilTime,
+  hops,
+  onHopsChange,
+}) => {
   const addHop = () => {
     onHopsChange([
       ...hops,
       {
-        alphaAcids: 0,
-        weight: 0,
+        alphaAcids: 10,
+        boilTime,
+        weight: 30,
       },
     ]);
   };
@@ -100,6 +109,28 @@ const Hops: React.FunctionComponent<Props> = ({ hops, onHopsChange }) => {
               }}
               type="number"
               value={hop.alphaAcids}
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">min</InputAdornment>
+                ),
+              }}
+              inputProps={{
+                max: boilTime,
+                min: 1,
+              }}
+              label="Boiling time"
+              onChange={(event) => {
+                updateHop(index, {
+                  ...hop,
+                  boilTime: Number(event.target.value),
+                });
+              }}
+              type="number"
+              value={hop.boilTime}
             />
           </Grid>
           <Grid item>

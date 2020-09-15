@@ -33,6 +33,7 @@ const Home: NextPage = () => {
   const [hops, setHops] = useState<Hop[]>([
     {
       alphaAcids: 10,
+      boilTime,
       weight: 30,
     },
   ]);
@@ -62,7 +63,7 @@ const Home: NextPage = () => {
               <Malts malts={malts} onMaltsChange={setMalts} />
             </Grid>
             <Grid item xs={12}>
-              <Hops hops={hops} onHopsChange={setHops} />
+              <Hops boilTime={boilTime} hops={hops} onHopsChange={setHops} />
             </Grid>
             <Grid item>
               <Color batchVolume={batchVolume} malts={malts} />
@@ -70,7 +71,6 @@ const Home: NextPage = () => {
             <Grid item>
               <IBU
                 batchVolume={batchVolume}
-                boilTime={boilTime}
                 hops={hops}
                 originalGravity={originalGravity}
               />
