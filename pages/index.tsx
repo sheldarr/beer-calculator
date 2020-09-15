@@ -7,9 +7,10 @@ import styled from 'styled-components';
 import Grid from '@material-ui/core/Grid';
 
 import { calculatePlatoToOg } from '../utils/unitConverters';
+import Abv from '../components/Abv';
 import Color from '../components/Color';
 import Hops, { Hop } from '../components/Hops';
-import IBU from '../components/IBU';
+import Ibu from '../components/Ibu';
 import Malts, { Malt } from '../components/Malts';
 import Params from '../components/Params';
 
@@ -24,6 +25,7 @@ const Home: NextPage = () => {
   const [batchVolume, setBatchVolume] = useState(24);
   const [boilTime, setBoilTime] = useState(70);
   const [density, setDensity] = useState(12);
+  const [finalDensity, setFinalDensity] = useState(3);
   const [malts, setMalts] = useState<Malt[]>([
     {
       ebc: 3.6,
@@ -39,6 +41,7 @@ const Home: NextPage = () => {
   ]);
 
   const originalGravity = calculatePlatoToOg(density);
+  const finalGravity = calculatePlatoToOg(finalDensity);
 
   return (
     <div>
@@ -54,9 +57,11 @@ const Home: NextPage = () => {
                 batchVolume={batchVolume}
                 boilTime={boilTime}
                 density={density}
+                finalDensity={finalDensity}
                 onBatchVolumeChange={setBatchVolume}
                 onBoilTimeChange={setBoilTime}
                 onDensityChange={setDensity}
+                onFinalDensityChange={setFinalDensity}
               />
             </Grid>
             <Grid item>
@@ -66,10 +71,16 @@ const Home: NextPage = () => {
               <Hops boilTime={boilTime} hops={hops} onHopsChange={setHops} />
             </Grid>
             <Grid item>
+              <Abv
+                finalGravity={finalGravity}
+                originalGravity={originalGravity}
+              />
+            </Grid>
+            <Grid item>
               <Color batchVolume={batchVolume} malts={malts} />
             </Grid>
             <Grid item>
-              <IBU
+              <Ibu
                 batchVolume={batchVolume}
                 boilTime={boilTime}
                 hops={hops}

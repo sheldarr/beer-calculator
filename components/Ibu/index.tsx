@@ -26,7 +26,7 @@ interface Props {
   originalGravity: number;
 }
 
-const IBU: React.FunctionComponent<Props> = ({
+const Ibu: React.FunctionComponent<Props> = ({
   batchVolume,
   boilTime,
   hops,
@@ -155,4 +155,4 @@ const IBU: React.FunctionComponent<Props> = ({
   );
 };
 
-export default IBU;
+export default Ibu;

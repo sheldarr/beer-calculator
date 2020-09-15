@@ -9,18 +9,22 @@ interface Props {
   batchVolume: number;
   boilTime: number;
   density: number;
+  finalDensity: number;
   onBatchVolumeChange: (batchVolume: number) => void;
   onBoilTimeChange: (batchVolume: number) => void;
   onDensityChange: (density: number) => void;
+  onFinalDensityChange: (finalDensity: number) => void;
 }
 
 const Params: React.FunctionComponent<Props> = ({
   batchVolume,
   boilTime,
   density,
+  finalDensity,
   onBatchVolumeChange,
   onBoilTimeChange,
   onDensityChange,
+  onFinalDensityChange,
 }) => {
   calculatePlatoToOg(density);
 
@@ -29,21 +33,39 @@ const Params: React.FunctionComponent<Props> = ({
       <Grid item xs={12}>
         <h2>Parameters</h2>
       </Grid>
-      <Grid item>
-        <TextField
-          InputProps={{
-            endAdornment: <InputAdornment position="end">l</InputAdornment>,
-          }}
-          inputProps={{
-            min: 0,
-          }}
-          label="Batch volume"
-          onChange={(event) => {
-            onBatchVolumeChange(Number(event.target.value));
-          }}
-          type="number"
-          value={batchVolume.toFixed(2)}
-        />
+      <Grid container item spacing={2} xs={12}>
+        <Grid item>
+          <TextField
+            InputProps={{
+              endAdornment: <InputAdornment position="end">l</InputAdornment>,
+            }}
+            inputProps={{
+              min: 0,
+            }}
+            label="Batch volume"
+            onChange={(event) => {
+              onBatchVolumeChange(Number(event.target.value));
+            }}
+            type="number"
+            value={batchVolume.toFixed(2)}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            InputProps={{
+              endAdornment: <InputAdornment position="end">min</InputAdornment>,
+            }}
+            inputProps={{
+              min: 0,
+            }}
+            label="Boil time"
+            onChange={(event) => {
+              onBoilTimeChange(Number(event.target.value));
+            }}
+            type="number"
+            value={boilTime}
+          />
+        </Grid>
       </Grid>
       <Grid item>
         <TextField
@@ -65,17 +87,18 @@ const Params: React.FunctionComponent<Props> = ({
       <Grid item>
         <TextField
           InputProps={{
-            endAdornment: <InputAdornment position="end">min</InputAdornment>,
+            endAdornment: <InputAdornment position="end">°P</InputAdornment>,
           }}
           inputProps={{
             min: 0,
+            step: 0.5,
           }}
-          label="Boil time"
+          label="Final density"
           onChange={(event) => {
-            onBoilTimeChange(Number(event.target.value));
+            onFinalDensityChange(Number(event.target.value));
           }}
           type="number"
-          value={boilTime}
+          value={finalDensity}
         />
       </Grid>
       <Grid item>
@@ -87,6 +110,17 @@ const Params: React.FunctionComponent<Props> = ({
           label="Density"
           type="number"
           value={calculatePlatoToOg(density).toFixed(3)}
+        />
+      </Grid>
+      <Grid item>
+        <TextField
+          disabled
+          InputProps={{
+            endAdornment: <InputAdornment position="end">OG</InputAdornment>,
+          }}
+          label="Final density"
+          type="number"
+          value={calculatePlatoToOg(finalDensity).toFixed(3)}
         />
       </Grid>
     </Grid>
