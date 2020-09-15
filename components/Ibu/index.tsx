@@ -9,6 +9,7 @@ import {
   YAxis,
   ResponsiveContainer,
   Tooltip,
+  ReferenceLine,
 } from 'recharts';
 
 import {
@@ -145,6 +146,7 @@ const Ibu: React.FunctionComponent<Props> = ({
               stroke="blue"
               type="monotone"
             />
+            <ReferenceLine label="End of boil" stroke="red" x={boilTime} />
             <XAxis dataKey="minute" />
             <YAxis />
             <Tooltip labelFormatter={(time) => `Boiling time: ${time}min`} />
