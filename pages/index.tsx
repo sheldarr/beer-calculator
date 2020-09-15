@@ -41,7 +41,6 @@ const Home: NextPage = () => {
   ]);
 
   const originalGravity = calculatePlatoToOg(density);
-  const finalGravity = calculatePlatoToOg(finalDensity);
 
   return (
     <div>
@@ -71,10 +70,7 @@ const Home: NextPage = () => {
               <Hops boilTime={boilTime} hops={hops} onHopsChange={setHops} />
             </Grid>
             <Grid item>
-              <Abv
-                finalGravity={finalGravity}
-                originalGravity={originalGravity}
-              />
+              <Abv finalDensity={finalDensity} originalDensity={density} />
             </Grid>
             <Grid item>
               <Color batchVolume={batchVolume} malts={malts} />
