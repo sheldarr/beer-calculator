@@ -53,40 +53,41 @@ const Ibu: React.FunctionComponent<Props> = ({
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const boilMinutes = [...Array(120).keys()];
-  const ibuData = boilMinutes.map((minute) => {
-    const [ibuRager, ibuTinseth] = hops.reduce(
-      ([ibuRager, ibuTinseth], hop) => {
-        const hopBoilTime = minute - (boilTime - hop.boilTime);
+  const ibuData = [...Array(120).keys()]
+    .map((minute) => minute + 1)
+    .map((minute) => {
+      const [ibuRager, ibuTinseth] = hops.reduce(
+        ([ibuRager, ibuTinseth], hop) => {
+          const hopBoilTime = minute - (boilTime - hop.boilTime);
 
-        if (hopBoilTime < 0) {
-          return [ibuRager, ibuTinseth];
-        }
+          if (hopBoilTime < 0) {
+            return [ibuRager, ibuTinseth];
+          }
 
-        const ibuParams: IbuParams = {
-          alphaAcids: hop.alphaAcids / 100,
-          batchVolume,
-          boilTime: hopBoilTime,
-          hopWeight: hop.weight,
-          originalGravity,
-        };
+          const ibuParams: IbuParams = {
+            alphaAcids: hop.alphaAcids / 100,
+            batchVolume,
+            boilTime: hopBoilTime,
+            hopWeight: hop.weight,
+            originalGravity,
+          };
 
-        return [
-          ibuRager + calculateRager(ibuParams),
-          ibuTinseth + calculateTinseth(ibuParams),
-        ];
-      },
-      [0, 0],
-    );
+          return [
+            ibuRager + calculateRager(ibuParams),
+            ibuTinseth + calculateTinseth(ibuParams),
+          ];
+        },
+        [0, 0],
+      );
 
-    return {
-      average: (ibuRager + ibuTinseth) / 2,
-      label: 'IBU',
-      minute,
-      rager: ibuRager,
-      tinseth: ibuTinseth,
-    };
-  });
+      return {
+        average: (ibuRager + ibuTinseth) / 2,
+        label: 'IBU',
+        minute,
+        rager: ibuRager,
+        tinseth: ibuTinseth,
+      };
+    });
 
   return (
     <Grid container spacing={2}>
