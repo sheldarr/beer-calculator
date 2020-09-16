@@ -46,7 +46,7 @@ const Color: React.FunctionComponent<Props> = ({ batchVolume, malts }) => {
       <Grid item xs={12}>
         <h2>Color</h2>
       </Grid>
-      <Grid item>
+      <Grid item xs={2}>
         <TextField
           disabled
           label="SRM Morey"
@@ -54,7 +54,7 @@ const Color: React.FunctionComponent<Props> = ({ batchVolume, malts }) => {
           value={srmMorey.toFixed(2)}
         />
       </Grid>
-      <Grid item>
+      <Grid item xs={2}>
         <TextField
           disabled
           label="EBC Morey"

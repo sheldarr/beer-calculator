@@ -94,7 +94,7 @@ const Ibu: React.FunctionComponent<Props> = ({
         <h2>IBU</h2>
       </Grid>
 
-      <Grid item>
+      <Grid item xs={2}>
         <TextField
           disabled
           label="Rager"
@@ -102,7 +102,7 @@ const Ibu: React.FunctionComponent<Props> = ({
           value={ibuRager.toFixed(2)}
         />
       </Grid>
-      <Grid item>
+      <Grid item xs={2}>
         <TextField
           disabled
           label="Tinseth"
@@ -110,7 +110,7 @@ const Ibu: React.FunctionComponent<Props> = ({
           value={ibuTinseth.toFixed(2)}
         />
       </Grid>
-      <Grid item>
+      <Grid item xs={2}>
         <TextField
           disabled
           label="Average"

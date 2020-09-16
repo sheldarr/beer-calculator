@@ -33,41 +33,39 @@ const Params: React.FunctionComponent<Props> = ({
       <Grid item xs={12}>
         <h2>Parameters</h2>
       </Grid>
-      <Grid container item spacing={2} xs={12}>
-        <Grid item>
-          <TextField
-            InputProps={{
-              endAdornment: <InputAdornment position="end">l</InputAdornment>,
-            }}
-            inputProps={{
-              min: 0,
-            }}
-            label="Batch volume"
-            onChange={(event) => {
-              onBatchVolumeChange(Number(event.target.value));
-            }}
-            type="number"
-            value={batchVolume.toFixed(2)}
-          />
-        </Grid>
-        <Grid item>
-          <TextField
-            InputProps={{
-              endAdornment: <InputAdornment position="end">min</InputAdornment>,
-            }}
-            inputProps={{
-              min: 0,
-            }}
-            label="Boil time"
-            onChange={(event) => {
-              onBoilTimeChange(Number(event.target.value));
-            }}
-            type="number"
-            value={boilTime}
-          />
-        </Grid>
+      <Grid item xs={2}>
+        <TextField
+          InputProps={{
+            endAdornment: <InputAdornment position="end">l</InputAdornment>,
+          }}
+          inputProps={{
+            min: 0,
+          }}
+          label="Batch volume"
+          onChange={(event) => {
+            onBatchVolumeChange(Number(event.target.value));
+          }}
+          type="number"
+          value={batchVolume.toFixed(2)}
+        />
       </Grid>
-      <Grid item>
+      <Grid item xs={2}>
+        <TextField
+          InputProps={{
+            endAdornment: <InputAdornment position="end">min</InputAdornment>,
+          }}
+          inputProps={{
+            min: 0,
+          }}
+          label="Boil time"
+          onChange={(event) => {
+            onBoilTimeChange(Number(event.target.value));
+          }}
+          type="number"
+          value={boilTime}
+        />
+      </Grid>
+      <Grid item xs={2}>
         <TextField
           InputProps={{
             endAdornment: <InputAdornment position="end">°P</InputAdornment>,
@@ -84,8 +82,9 @@ const Params: React.FunctionComponent<Props> = ({
           value={density}
         />
       </Grid>
-      <Grid item>
+      <Grid item xs={2}>
         <TextField
+          fullWidth
           InputProps={{
             endAdornment: <InputAdornment position="end">°P</InputAdornment>,
           }}
@@ -102,7 +101,7 @@ const Params: React.FunctionComponent<Props> = ({
           value={finalDensity}
         />
       </Grid>
-      <Grid item>
+      <Grid item xs={2}>
         <TextField
           disabled
           InputProps={{
@@ -113,7 +112,7 @@ const Params: React.FunctionComponent<Props> = ({
           value={calculatePlatoToOg(density).toFixed(3)}
         />
       </Grid>
-      <Grid item>
+      <Grid item xs={2}>
         <TextField
           disabled
           InputProps={{

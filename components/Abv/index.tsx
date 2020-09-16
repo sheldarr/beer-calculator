@@ -36,7 +36,8 @@ const Abv: React.FunctionComponent<Props> = ({
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const abvData = [...Array(Math.ceil(originalDensity) + 1).keys()]
+  const abvData = [...Array(Math.ceil(originalDensity * 2) + 1).keys()]
+    .map((density) => density / 2)
     .sort(sortDesc)
     .map((density) => {
       const abvAlternate = calculateAlternateAbv({
@@ -62,7 +63,7 @@ const Abv: React.FunctionComponent<Props> = ({
         <h2>ABV</h2>
       </Grid>
 
-      <Grid item>
+      <Grid item xs={2}>
         <TextField
           disabled
           InputProps={{
@@ -73,7 +74,7 @@ const Abv: React.FunctionComponent<Props> = ({
           value={standardAbv.toFixed(2)}
         />
       </Grid>
-      <Grid item>
+      <Grid item xs={2}>
         <TextField
           disabled
           InputProps={{
@@ -84,7 +85,7 @@ const Abv: React.FunctionComponent<Props> = ({
           value={alternateAbv.toFixed(2)}
         />
       </Grid>
-      <Grid item>
+      <Grid item xs={2}>
         <TextField
           disabled
           InputProps={{
@@ -95,12 +96,9 @@ const Abv: React.FunctionComponent<Props> = ({
           value={averageAbv.toFixed(2)}
         />
       </Grid>
-      <Grid item xs={12}>
-        <ResponsiveContainer height={500} width="100%">
-          <LineChart
-            data={abvData}
-            margin={{ bottom: 50, left: 10, right: 10, top: 50 }}
-          >
+      <Grid item xs={6}>
+        <ResponsiveContainer height={160} width="100%">
+          <LineChart data={abvData}>
             <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
             <Line
               dataKey="average"

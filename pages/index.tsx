@@ -51,7 +51,7 @@ const Home: NextPage = () => {
       <Container>
         <StyledPaper>
           <Grid container spacing={4}>
-            <Grid item>
+            <Grid item xs={12}>
               <Params
                 batchVolume={batchVolume}
                 boilTime={boilTime}
@@ -63,19 +63,19 @@ const Home: NextPage = () => {
                 onFinalDensityChange={setFinalDensity}
               />
             </Grid>
-            <Grid item>
+            <Grid item xs={12}>
+              <Abv finalDensity={finalDensity} originalDensity={density} />
+            </Grid>
+            <Grid item xs={12}>
               <Malts malts={malts} onMaltsChange={setMalts} />
+            </Grid>
+            <Grid item xs={12}>
+              <Color batchVolume={batchVolume} malts={malts} />
             </Grid>
             <Grid item xs={12}>
               <Hops boilTime={boilTime} hops={hops} onHopsChange={setHops} />
             </Grid>
-            <Grid item>
-              <Abv finalDensity={finalDensity} originalDensity={density} />
-            </Grid>
-            <Grid item>
-              <Color batchVolume={batchVolume} malts={malts} />
-            </Grid>
-            <Grid item>
+            <Grid item xs={12}>
               <Ibu
                 batchVolume={batchVolume}
                 boilTime={boilTime}

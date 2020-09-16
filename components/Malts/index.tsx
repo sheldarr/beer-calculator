@@ -65,7 +65,7 @@ const Malts: React.FunctionComponent<Props> = ({ malts, onMaltsChange }) => {
       </Grid>
       {malts.map((malt, index) => (
         <Grid container item key={index} spacing={2}>
-          <Grid item>
+          <Grid item xs={2}>
             <TextField
               InputProps={{
                 endAdornment: (
@@ -86,7 +86,7 @@ const Malts: React.FunctionComponent<Props> = ({ malts, onMaltsChange }) => {
               value={malt.ebc}
             />
           </Grid>
-          <Grid item>
+          <Grid item xs={2}>
             <TextField
               InputProps={{
                 endAdornment: (
@@ -107,7 +107,7 @@ const Malts: React.FunctionComponent<Props> = ({ malts, onMaltsChange }) => {
               value={malt.weight}
             />
           </Grid>
-          <Grid item>
+          <Grid item xs={2}>
             <TextField
               disabled
               InputProps={{
@@ -120,7 +120,7 @@ const Malts: React.FunctionComponent<Props> = ({ malts, onMaltsChange }) => {
               value={kgToLbs(malt.weight).toFixed(2)}
             />
           </Grid>
-          <Grid item>
+          <Grid item xs={2}>
             <TextField
               disabled
               InputProps={{

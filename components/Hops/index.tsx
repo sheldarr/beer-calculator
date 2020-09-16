@@ -72,7 +72,7 @@ const Hops: React.FunctionComponent<Props> = ({
       </Grid>
       {hops.map((hop, index) => (
         <Grid container item key={index} spacing={2}>
-          <Grid item>
+          <Grid item xs={2}>
             <TextField
               InputProps={{
                 endAdornment: <InputAdornment position="end">g</InputAdornment>,
@@ -91,7 +91,7 @@ const Hops: React.FunctionComponent<Props> = ({
               value={hop.weight}
             />
           </Grid>
-          <Grid item>
+          <Grid item xs={2}>
             <TextField
               InputProps={{
                 endAdornment: <InputAdornment position="end">%</InputAdornment>,
@@ -111,8 +111,9 @@ const Hops: React.FunctionComponent<Props> = ({
               value={hop.alphaAcids}
             />
           </Grid>
-          <Grid item>
+          <Grid item xs={2}>
             <TextField
+              fullWidth
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">min</InputAdornment>
