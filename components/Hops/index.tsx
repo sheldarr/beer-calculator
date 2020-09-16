@@ -123,7 +123,7 @@ const Hops: React.FunctionComponent<Props> = ({
                 max: boilTime,
                 min: 1,
               }}
-              label="Boiling time"
+              label="Boil time"
               onChange={(event) => {
                 updateHop(index, {
                   ...hop,

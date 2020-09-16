@@ -53,20 +53,20 @@ const Ibu: React.FunctionComponent<Props> = ({
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const boilingMinutes = [...Array(120).keys()];
-  const ibuData = boilingMinutes.map((minute) => {
+  const boilMinutes = [...Array(120).keys()];
+  const ibuData = boilMinutes.map((minute) => {
     const [ibuRager, ibuTinseth] = hops.reduce(
       ([ibuRager, ibuTinseth], hop) => {
-        const hopBoilingTime = minute - (boilTime - hop.boilTime);
+        const hopBoilTime = minute - (boilTime - hop.boilTime);
 
-        if (hopBoilingTime < 0) {
+        if (hopBoilTime < 0) {
           return [ibuRager, ibuTinseth];
         }
 
         const ibuParams: IbuParams = {
           alphaAcids: hop.alphaAcids / 100,
           batchVolume,
-          boilTime: hopBoilingTime,
+          boilTime: hopBoilTime,
           hopWeight: hop.weight,
           originalGravity,
         };
@@ -149,7 +149,7 @@ const Ibu: React.FunctionComponent<Props> = ({
             <ReferenceLine label="End of boil" stroke="red" x={boilTime} />
             <XAxis dataKey="minute" />
             <YAxis />
-            <Tooltip labelFormatter={(time) => `Boiling time: ${time}min`} />
+            <Tooltip labelFormatter={(time) => `Boil time: ${time}min`} />
           </LineChart>
         </ResponsiveContainer>
       </Grid>
