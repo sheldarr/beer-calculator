@@ -95,6 +95,7 @@ const Malts: React.FunctionComponent<Props> = ({ malts, onMaltsChange }) => {
               }}
               inputProps={{
                 min: 0,
+                step: 0.1,
               }}
               label="Weight"
               onChange={(event) => {
