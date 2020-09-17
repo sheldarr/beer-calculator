@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from '@material-ui/core/IconButton';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import useSwr from 'swr';
 
 import { ebcToSrm, kgToLbs, srmToLovibond } from '../../utils/unitConverters';
+import { PredefinedMalt } from '../../pages/api/malts';
 
 export interface Malt {
   ebc: number;
+  extract: number;
+  name: string;
   weight: number;
 }
 
@@ -18,15 +24,32 @@ interface Props {
   onMaltsChange: (malts: Malt[]) => void;
 }
 
+const fetcher = (url: string) => fetch(url).then((response) => response.json());
+
 const Malts: React.FunctionComponent<Props> = ({ malts, onMaltsChange }) => {
+  const { data: predefinedMalts, mutate } = useSwr<PredefinedMalt[]>(
+    '/api/malts',
+    fetcher,
+    {
+      initialData: [],
+    },
+  );
+
+  mutate();
+
+  const [predefinedMalt, setPredefinedMalt] = useState<
+    PredefinedMalt | undefined
+  >(undefined);
+
+  useEffect(() => {
+    const [anyMalt] = predefinedMalts;
+    console.log('anyMalt', anyMalt);
+
+    setPredefinedMalt(anyMalt);
+  }, [predefinedMalts]);
+
   const addMalt = () => {
-    onMaltsChange([
-      ...malts,
-      {
-        ebc: 0,
-        weight: 0,
-      },
-    ]);
+    onMaltsChange([...malts, { ...predefinedMalt, weight: 0 }]);
   };
 
   const updateMalt = (index: number, newMalt: Malt) => {
@@ -54,17 +77,53 @@ const Malts: React.FunctionComponent<Props> = ({ malts, onMaltsChange }) => {
 
   return (
     <Grid container spacing={2}>
-      <Grid container item xs={12}>
-        <Grid item>
-          <h2>Malts</h2>
-        </Grid>
-        <Grid item></Grid>
+      <Grid item xs={12}>
+        <h2>Malts</h2>
+      </Grid>
+      <Grid item xs={2}>
+        <Select
+          displayEmpty
+          onChange={(event) => {
+            setPredefinedMalt(event.target.value as PredefinedMalt);
+          }}
+          value={predefinedMalt || ''}
+        >
+          {predefinedMalts.map((malt) => (
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            <MenuItem key={malt.name} value={malt}>
+              {malt.name}
+            </MenuItem>
+          ))}
+        </Select>
         <IconButton color="primary" onClick={addMalt}>
           <AddCircleIcon />
         </IconButton>
       </Grid>
       {malts.map((malt, index) => (
         <Grid container item key={index} spacing={2}>
+          <Grid item xs={2}>
+            <TextField
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">kg</InputAdornment>
+                ),
+              }}
+              inputProps={{
+                min: 0,
+                step: 0.1,
+              }}
+              label="Weight"
+              onChange={(event) => {
+                updateMalt(index, {
+                  ...malt,
+                  weight: Number(event.target.value),
+                });
+              }}
+              type="number"
+              value={malt.weight}
+            />
+          </Grid>
           <Grid item xs={2}>
             <TextField
               InputProps={{
@@ -88,24 +147,24 @@ const Malts: React.FunctionComponent<Props> = ({ malts, onMaltsChange }) => {
           </Grid>
           <Grid item xs={2}>
             <TextField
+              fullWidth
               InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">kg</InputAdornment>
-                ),
+                endAdornment: <InputAdornment position="end">%</InputAdornment>,
               }}
               inputProps={{
-                min: 0,
+                max: 100,
+                min: 1,
                 step: 0.1,
               }}
-              label="Weight"
+              label="Extract"
               onChange={(event) => {
                 updateMalt(index, {
                   ...malt,
-                  weight: Number(event.target.value),
+                  extract: Number(event.target.value),
                 });
               }}
               type="number"
-              value={malt.weight}
+              value={malt.extract}
             />
           </Grid>
           <Grid item xs={2}>

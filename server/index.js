@@ -6,9 +6,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const logger = require('./logger');
-const initializeAxios = require('./axios');
-
-const getGreatOldOnes = require('./api/great-old-ones');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -16,8 +13,6 @@ const handleByNext = app.getRequestHandler();
 
 const APP_PORT = Number(process.env.APP_PORT);
 const LISTEN_ON_ALL_INTERFACES = '0.0.0.0';
-
-initializeAxios();
 
 const handleByExpress = express();
 
@@ -41,12 +36,6 @@ app.prepare().then(() => {
   createServer((req, res) => {
     const parsedUrl = url.parse(req.url, true);
     const { pathname } = parsedUrl;
-
-    if (pathname.startsWith('/api')) {
-      handleByExpress.get('/api/great-old-ones', getGreatOldOnes);
-
-      return handleByExpress(req, res);
-    }
 
     if (pathname === '/service-worker.js') {
       const filePath = join(__dirname, '.next', pathname);
