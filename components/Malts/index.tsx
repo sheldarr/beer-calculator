@@ -9,7 +9,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import useSwr from 'swr';
 
-import { ebcToSrm, kgToLbs, srmToLovibond } from '../../utils/unitConverters';
 import { PredefinedMalt } from '../../pages/api/malts';
 
 export interface Malt {
@@ -80,28 +79,33 @@ const Malts: React.FunctionComponent<Props> = ({ malts, onMaltsChange }) => {
       <Grid item xs={12}>
         <h2>Malts</h2>
       </Grid>
-      <Grid item xs={2}>
-        <Select
-          displayEmpty
-          onChange={(event) => {
-            setPredefinedMalt(event.target.value as PredefinedMalt);
-          }}
-          value={predefinedMalt || ''}
-        >
-          {predefinedMalts.map((malt) => (
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            <MenuItem key={malt.name} value={malt}>
-              {malt.name}
-            </MenuItem>
-          ))}
-        </Select>
-        <IconButton color="primary" onClick={addMalt}>
-          <AddCircleIcon />
-        </IconButton>
+      <Grid container item spacing={2}>
+        <Grid item>
+          <Select
+            displayEmpty
+            onChange={(event) => {
+              setPredefinedMalt(event.target.value as PredefinedMalt);
+            }}
+            value={predefinedMalt || ''}
+          >
+            {predefinedMalts.map((malt) => (
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              <MenuItem key={malt.name} value={malt}>
+                {malt.name} {malt.ebc} EBC {malt.extract}%
+              </MenuItem>
+            ))}
+          </Select>
+          <IconButton color="primary" onClick={addMalt}>
+            <AddCircleIcon />
+          </IconButton>
+        </Grid>
       </Grid>
       {malts.map((malt, index) => (
         <Grid container item key={index} spacing={2}>
+          <Grid item xs={2}>
+            <TextField disabled label="Name" type="text" value={malt.name} />
+          </Grid>
           <Grid item xs={2}>
             <TextField
               InputProps={{
@@ -165,32 +169,6 @@ const Malts: React.FunctionComponent<Props> = ({ malts, onMaltsChange }) => {
               }}
               type="number"
               value={malt.extract}
-            />
-          </Grid>
-          <Grid item xs={2}>
-            <TextField
-              disabled
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">lbs</InputAdornment>
-                ),
-              }}
-              label="Weight"
-              type="number"
-              value={kgToLbs(malt.weight).toFixed(2)}
-            />
-          </Grid>
-          <Grid item xs={2}>
-            <TextField
-              disabled
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">°L</InputAdornment>
-                ),
-              }}
-              label="Color"
-              type="number"
-              value={srmToLovibond(ebcToSrm(malt.ebc)).toFixed(1)}
             />
           </Grid>
           <Grid item>
