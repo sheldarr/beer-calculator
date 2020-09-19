@@ -42,7 +42,6 @@ const Malts: React.FunctionComponent<Props> = ({ malts, onMaltsChange }) => {
 
   useEffect(() => {
     const [anyMalt] = predefinedMalts;
-    console.log('anyMalt', anyMalt);
 
     setPredefinedMalt(anyMalt);
   }, [predefinedMalts]);

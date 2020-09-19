@@ -1,4 +1,4 @@
-version: "3.5"
+version: '3.5'
 
 services:
   beer-calculator:
@@ -8,6 +8,6 @@ services:
     env_file:
       - .env
     ports:
-      - ${APP_PORT}:${APP_PORT}
+      - 3000:3000
     volumes:
       - .:/app

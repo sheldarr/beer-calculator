@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "nodemon server",
+    "dev": "next dev",
     "build": "next build",
-    "start": "NODE_ENV=production node server",
+    "start": "next start",
     "lint": "eslint '.' --ext .js --ext .jsx --ext .ts --ext .tsx"
   },
   "dependencies": {
