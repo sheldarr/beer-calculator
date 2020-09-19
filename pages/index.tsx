@@ -28,9 +28,9 @@ const Home: NextPage = () => {
   const [finalDensity, setFinalDensity] = useState(3);
   const [malts, setMalts] = useState<Malt[]>([
     {
-      ebc: 3.6,
-      extract: 75,
-      name: 'Custom',
+      ebc: 6.25,
+      extract: 81.6,
+      name: 'Pale Ale',
       weight: 5,
     },
   ]);
