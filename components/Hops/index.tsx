@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from '@material-ui/core/IconButton';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import useSwr from 'swr';
 
 import { Minutes } from '../../utils/ibu';
+import { PredefinedHop } from '../../pages/api/hops';
 
 export interface Hop {
   alphaAcids: number;
   boilTime: Minutes;
+  name: string;
   weight: number;
 }
 
@@ -20,18 +25,42 @@ interface Props {
   onHopsChange: (hops: Hop[]) => void;
 }
 
+const DEFAULT_HOP_WEIGHT = 30;
+
+const fetcher = (url: string) => fetch(url).then((response) => response.json());
+
 const Hops: React.FunctionComponent<Props> = ({
   boilTime,
   hops,
   onHopsChange,
 }) => {
+  const { data: predefinedHops, mutate } = useSwr<PredefinedHop[]>(
+    '/api/hops',
+    fetcher,
+    {
+      initialData: [],
+    },
+  );
+
+  mutate();
+
+  const [predefinedHop, setPredefinedHop] = useState<PredefinedHop | undefined>(
+    undefined,
+  );
+
+  useEffect(() => {
+    const [anyHop] = predefinedHops;
+
+    setPredefinedHop(anyHop);
+  }, [predefinedHops]);
+
   const addHop = () => {
     onHopsChange([
       ...hops,
       {
-        alphaAcids: 10,
+        ...predefinedHop,
         boilTime,
-        weight: 30,
+        weight: DEFAULT_HOP_WEIGHT,
       },
     ]);
   };
@@ -61,17 +90,36 @@ const Hops: React.FunctionComponent<Props> = ({
 
   return (
     <Grid container spacing={2}>
-      <Grid container item xs={12}>
+      <Grid item xs={12}>
+        <h2>Hops</h2>
+      </Grid>
+      <Grid container item spacing={2}>
         <Grid item>
-          <h2>Hops</h2>
+          <Select
+            displayEmpty
+            onChange={(event) => {
+              setPredefinedHop(event.target.value as PredefinedHop);
+            }}
+            value={predefinedHop || ''}
+          >
+            {predefinedHops.map((hop) => (
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              <MenuItem key={hop.name} value={hop}>
+                {hop.name} {hop.alphaAcids}%
+              </MenuItem>
+            ))}
+          </Select>
+          <IconButton color="primary" onClick={addHop}>
+            <AddCircleIcon />
+          </IconButton>
         </Grid>
-        <Grid item></Grid>
-        <IconButton color="primary" onClick={addHop}>
-          <AddCircleIcon />
-        </IconButton>
       </Grid>
       {hops.map((hop, index) => (
         <Grid container item key={index} spacing={2}>
+          <Grid item xs={2}>
+            <TextField disabled label="Name" type="text" value={hop.name} />
+          </Grid>
           <Grid item xs={2}>
             <TextField
               InputProps={{

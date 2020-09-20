@@ -36,8 +36,9 @@ const Home: NextPage = () => {
   ]);
   const [hops, setHops] = useState<Hop[]>([
     {
-      alphaAcids: 10,
+      alphaAcids: 6.7,
       boilTime,
+      name: 'Marynka',
       weight: 30,
     },
   ]);
