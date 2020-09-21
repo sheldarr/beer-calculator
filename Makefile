@@ -13,7 +13,7 @@ DOCKER_RUN = docker run \
 	--workdir /app \
 	--user ${USERID} \
 	--rm \
-	node:10.19
+	node:12
 
 build: ## build for production
 	$(DOCKER_RUN) yarn build
