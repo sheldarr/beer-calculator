@@ -12,6 +12,7 @@ import Color from '../components/Color';
 import Hops, { Hop } from '../components/Hops';
 import Ibu from '../components/Ibu';
 import Malts, { Malt } from '../components/Malts';
+import Mash from '../components/Mash';
 import Params from '../components/Params';
 
 const StyledPaper = styled(Paper)`
@@ -74,6 +75,9 @@ const Home: NextPage = () => {
             </Grid>
             <Grid item xs={12}>
               <Color batchVolume={batchVolume} malts={malts} />
+            </Grid>
+            <Grid item xs={12}>
+              <Mash batchVolume={batchVolume} malts={malts} />
             </Grid>
             <Grid item xs={12}>
               <Hops boilTime={boilTime} hops={hops} onHopsChange={setHops} />
