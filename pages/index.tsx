@@ -23,7 +23,7 @@ const StyledPaper = styled(Paper)`
 `;
 
 const Home: NextPage = () => {
-  const [batchVolume, setBatchVolume] = useState(24);
+  const [batchVolume, setBatchVolume] = useState(23);
   const [boilTime, setBoilTime] = useState(70);
   const [density, setDensity] = useState(12);
   const [finalDensity, setFinalDensity] = useState(3);
@@ -77,7 +77,11 @@ const Home: NextPage = () => {
               <Color batchVolume={batchVolume} malts={malts} />
             </Grid>
             <Grid item xs={12}>
-              <Mash batchVolume={batchVolume} malts={malts} />
+              <Mash
+                batchVolume={batchVolume}
+                malts={malts}
+                onEstimatedDensityChange={setDensity}
+              />
             </Grid>
             <Grid item xs={12}>
               <Hops boilTime={boilTime} hops={hops} onHopsChange={setHops} />
