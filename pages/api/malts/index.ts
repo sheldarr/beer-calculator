@@ -13,6 +13,11 @@ const MALTS: PredefinedMalt[] = [
     name: 'Czekoladowy ciemny',
   },
   {
+    ebc: 400,
+    extract: 68,
+    name: 'Czekoladowy jasny',
+  },
+  {
     ebc: 200,
     extract: 75,
     name: 'Karmelowy 200',
@@ -21,6 +26,11 @@ const MALTS: PredefinedMalt[] = [
     ebc: 22,
     extract: 78,
     name: 'Monachijski ciemny',
+  },
+  {
+    ebc: 16,
+    extract: 78,
+    name: 'Monachijski jasny',
   },
   {
     ebc: 6.25,
