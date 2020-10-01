@@ -51,7 +51,7 @@ const Mash: React.FunctionComponent<Props> = ({
   const estimatedBeerVolume = batchVolume - coolingLoss - otherLoss;
 
   useEffect(() => {
-    onEstimatedDensityChange(estimatedDensity.toFixed(2));
+    onEstimatedDensityChange(Number(estimatedDensity.toFixed(2)));
   }, [estimatedDensity]);
 
   return (
