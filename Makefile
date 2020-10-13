@@ -16,7 +16,7 @@ DOCKER_RUN = docker run \
 	--tty \
 	--interactive \
 	--rm \
-	node:12
+	node:14-alpine
 
 build: ## build for production
 	$(DOCKER_RUN) yarn build
