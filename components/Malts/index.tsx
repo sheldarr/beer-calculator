@@ -78,10 +78,11 @@ const Malts: React.FunctionComponent<Props> = ({ malts, onMaltsChange }) => {
       <Grid item xs={12}>
         <h2>Malts</h2>
       </Grid>
-      <Grid container item spacing={2}>
-        <Grid item>
+      <Grid container item spacing={2} xs={12}>
+        <Grid item md={4} sm={6} xs={10}>
           <Select
             displayEmpty
+            fullWidth
             onChange={(event) => {
               setPredefinedMalt(event.target.value as PredefinedMalt);
             }}
@@ -95,6 +96,8 @@ const Malts: React.FunctionComponent<Props> = ({ malts, onMaltsChange }) => {
               </MenuItem>
             ))}
           </Select>
+        </Grid>
+        <Grid item xs={2}>
           <IconButton color="primary" onClick={addMalt}>
             <AddCircleIcon />
           </IconButton>
@@ -102,10 +105,10 @@ const Malts: React.FunctionComponent<Props> = ({ malts, onMaltsChange }) => {
       </Grid>
       {malts.map((malt, index) => (
         <Grid container item key={index} spacing={2}>
-          <Grid item xs={2}>
+          <Grid item md={2} sm={4} xs={6}>
             <TextField disabled label="Name" type="text" value={malt.name} />
           </Grid>
-          <Grid item xs={2}>
+          <Grid item md={2} sm={4} xs={6}>
             <TextField
               InputProps={{
                 endAdornment: (
@@ -127,7 +130,7 @@ const Malts: React.FunctionComponent<Props> = ({ malts, onMaltsChange }) => {
               value={malt.weight}
             />
           </Grid>
-          <Grid item xs={2}>
+          <Grid item md={2} sm={4} xs={6}>
             <TextField
               InputProps={{
                 endAdornment: (
@@ -148,7 +151,7 @@ const Malts: React.FunctionComponent<Props> = ({ malts, onMaltsChange }) => {
               value={malt.ebc}
             />
           </Grid>
-          <Grid item xs={2}>
+          <Grid item md={2} sm={4} xs={6}>
             <TextField
               fullWidth
               InputProps={{
