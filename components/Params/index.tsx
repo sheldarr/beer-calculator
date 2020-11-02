@@ -33,7 +33,7 @@ const Params: React.FunctionComponent<Props> = ({
       <Grid item xs={12}>
         <h2>Parameters</h2>
       </Grid>
-      <Grid item xs={2}>
+      <Grid item md={2} sm={4} xs={6}>
         <TextField
           InputProps={{
             endAdornment: <InputAdornment position="end">l</InputAdornment>,
@@ -49,7 +49,7 @@ const Params: React.FunctionComponent<Props> = ({
           value={batchVolume.toFixed(2)}
         />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item md={2} sm={4} xs={6}>
         <TextField
           InputProps={{
             endAdornment: <InputAdornment position="end">min</InputAdornment>,
@@ -65,7 +65,7 @@ const Params: React.FunctionComponent<Props> = ({
           value={boilTime}
         />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item md={2} sm={4} xs={6}>
         <TextField
           InputProps={{
             endAdornment: <InputAdornment position="end">°P</InputAdornment>,
@@ -82,7 +82,7 @@ const Params: React.FunctionComponent<Props> = ({
           value={density}
         />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item md={2} sm={4} xs={6}>
         <TextField
           fullWidth
           InputProps={{
@@ -101,7 +101,7 @@ const Params: React.FunctionComponent<Props> = ({
           value={finalDensity}
         />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item md={2} sm={4} xs={6}>
         <TextField
           disabled
           InputProps={{
@@ -112,7 +112,7 @@ const Params: React.FunctionComponent<Props> = ({
           value={calculatePlatoToOg(density).toFixed(3)}
         />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item md={2} sm={4} xs={6}>
         <TextField
           disabled
           InputProps={{
