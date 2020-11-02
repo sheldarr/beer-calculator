@@ -93,10 +93,11 @@ const Hops: React.FunctionComponent<Props> = ({
       <Grid item xs={12}>
         <h2>Hops</h2>
       </Grid>
-      <Grid container item spacing={2}>
-        <Grid item>
+      <Grid container item spacing={2} xs={12}>
+        <Grid item md={4} sm={6} xs={10}>
           <Select
             displayEmpty
+            fullWidth
             onChange={(event) => {
               setPredefinedHop(event.target.value as PredefinedHop);
             }}
@@ -110,6 +111,8 @@ const Hops: React.FunctionComponent<Props> = ({
               </MenuItem>
             ))}
           </Select>
+        </Grid>
+        <Grid item xs={2}>
           <IconButton color="primary" onClick={addHop}>
             <AddCircleIcon />
           </IconButton>
@@ -117,10 +120,10 @@ const Hops: React.FunctionComponent<Props> = ({
       </Grid>
       {hops.map((hop, index) => (
         <Grid container item key={index} spacing={2}>
-          <Grid item xs={2}>
+          <Grid item md={2} sm={4} xs={6}>
             <TextField disabled label="Name" type="text" value={hop.name} />
           </Grid>
-          <Grid item xs={2}>
+          <Grid item md={2} sm={4} xs={6}>
             <TextField
               InputProps={{
                 endAdornment: <InputAdornment position="end">g</InputAdornment>,
@@ -139,7 +142,7 @@ const Hops: React.FunctionComponent<Props> = ({
               value={hop.weight}
             />
           </Grid>
-          <Grid item xs={2}>
+          <Grid item md={2} sm={4} xs={6}>
             <TextField
               InputProps={{
                 endAdornment: <InputAdornment position="end">%</InputAdornment>,
@@ -159,7 +162,7 @@ const Hops: React.FunctionComponent<Props> = ({
               value={hop.alphaAcids}
             />
           </Grid>
-          <Grid item xs={2}>
+          <Grid item md={2} sm={4} xs={6}>
             <TextField
               fullWidth
               InputProps={{
@@ -182,7 +185,7 @@ const Hops: React.FunctionComponent<Props> = ({
               value={hop.boilTime}
             />
           </Grid>
-          <Grid item>
+          <Grid item md={2} sm={4} xs={6}>
             <IconButton
               color="secondary"
               onClick={() => {
