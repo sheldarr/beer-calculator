@@ -59,7 +59,7 @@ const Mash: React.FunctionComponent<Props> = ({
       <Grid item xs={12}>
         <h2>Mash</h2>
       </Grid>
-      <Grid item xs={2}>
+      <Grid item md={2} sm={4} xs={6}>
         <TextField
           fullWidth
           InputProps={{
@@ -78,7 +78,7 @@ const Mash: React.FunctionComponent<Props> = ({
           value={efficiency}
         />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item md={2} sm={4} xs={6}>
         <TextField
           fullWidth
           inputProps={{
@@ -94,7 +94,7 @@ const Mash: React.FunctionComponent<Props> = ({
           value={waterGrainRatio.toFixed(2)}
         />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item md={2} sm={4} xs={6}>
         <TextField
           disabled
           InputProps={{
@@ -105,7 +105,7 @@ const Mash: React.FunctionComponent<Props> = ({
           value={theoreticalExtract.toFixed(2)}
         />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item md={2} sm={4} xs={6}>
         <TextField
           disabled
           InputProps={{
@@ -116,7 +116,7 @@ const Mash: React.FunctionComponent<Props> = ({
           value={realExtract.toFixed(2)}
         />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item md={2} sm={4} xs={6}>
         <TextField
           disabled
           InputProps={{
@@ -127,7 +127,7 @@ const Mash: React.FunctionComponent<Props> = ({
           value={estimatedDensity.toFixed(2)}
         />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item md={2} sm={4} xs={6}>
         <TextField
           disabled
           InputProps={{
@@ -139,7 +139,7 @@ const Mash: React.FunctionComponent<Props> = ({
         />
       </Grid>
 
-      <Grid item xs={2}>
+      <Grid item md={2} sm={4} xs={6}>
         <TextField
           disabled
           InputProps={{
@@ -150,7 +150,7 @@ const Mash: React.FunctionComponent<Props> = ({
           value={mashWater.toFixed(2)}
         />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item md={2} sm={4} xs={6}>
         <TextField
           disabled
           InputProps={{
@@ -161,7 +161,7 @@ const Mash: React.FunctionComponent<Props> = ({
           value={spargeWater.toFixed(2)}
         />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item md={2} sm={4} xs={6}>
         <TextField
           disabled
           InputProps={{

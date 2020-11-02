@@ -67,7 +67,17 @@ const Abv: React.FunctionComponent<Props> = ({
       <Grid item xs={12}>
         <h2>ABV</h2>
       </Grid>
-
+      <Grid item md={2} sm={4} xs={6}>
+        <TextField
+          disabled
+          InputProps={{
+            endAdornment: <InputAdornment position="end">%</InputAdornment>,
+          }}
+          label="Average"
+          type="number"
+          value={averageAbv.toFixed(2)}
+        />
+      </Grid>
       <Grid item md={2} sm={4} xs={6}>
         <TextField
           disabled
@@ -88,17 +98,6 @@ const Abv: React.FunctionComponent<Props> = ({
           label="Alternate"
           type="number"
           value={alternateAbv.toFixed(2)}
-        />
-      </Grid>
-      <Grid item md={2} sm={4} xs={6}>
-        <TextField
-          disabled
-          InputProps={{
-            endAdornment: <InputAdornment position="end">%</InputAdornment>,
-          }}
-          label="Average"
-          type="number"
-          value={averageAbv.toFixed(2)}
         />
       </Grid>
       <Grid item xs={12}>

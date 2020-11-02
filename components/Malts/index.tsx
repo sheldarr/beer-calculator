@@ -173,7 +173,7 @@ const Malts: React.FunctionComponent<Props> = ({ malts, onMaltsChange }) => {
               value={malt.extract}
             />
           </Grid>
-          <Grid item>
+          <Grid item md={2} sm={4} xs={6}>
             <IconButton
               color="secondary"
               onClick={() => {
