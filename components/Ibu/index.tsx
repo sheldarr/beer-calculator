@@ -94,8 +94,15 @@ const Ibu: React.FunctionComponent<Props> = ({
       <Grid item xs={12}>
         <h2>IBU</h2>
       </Grid>
-
-      <Grid item xs={2}>
+      <Grid item md={2} sm={4} xs={6}>
+        <TextField
+          disabled
+          label="Average"
+          type="number"
+          value={((ibuRager + ibuTinseth) / 2).toFixed(2)}
+        />
+      </Grid>
+      <Grid item md={2} sm={4} xs={6}>
         <TextField
           disabled
           label="Rager"
@@ -103,20 +110,12 @@ const Ibu: React.FunctionComponent<Props> = ({
           value={ibuRager.toFixed(2)}
         />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item md={2} sm={4} xs={6}>
         <TextField
           disabled
           label="Tinseth"
           type="number"
           value={ibuTinseth.toFixed(2)}
-        />
-      </Grid>
-      <Grid item xs={2}>
-        <TextField
-          disabled
-          label="Average"
-          type="number"
-          value={((ibuRager + ibuTinseth) / 2).toFixed(2)}
         />
       </Grid>
       <Grid item xs={12}>
@@ -149,7 +148,7 @@ const Ibu: React.FunctionComponent<Props> = ({
             />
             <ReferenceLine label="End of boil" stroke="red" x={boilTime} />
             <XAxis dataKey="minute" />
-            <YAxis />
+            <YAxis width={15} />
             <Tooltip labelFormatter={(time) => `Boil time: ${time}min`} />
           </LineChart>
         </ResponsiveContainer>

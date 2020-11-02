@@ -132,7 +132,7 @@ const Abv: React.FunctionComponent<Props> = ({
                 x={finalDensity}
               />
               <XAxis dataKey="finalDensity" />
-              <YAxis width={10} />
+              <YAxis width={15} />
               <Tooltip
                 labelFormatter={(finalDensity) =>
                   `Final density: ${finalDensity}°P`
