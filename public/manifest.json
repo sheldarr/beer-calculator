@@ -1,6 +1,6 @@
 {
-  "short_name": "beer-calculator",
-  "name": "beer-calculator",
+  "short_name": "Beer Calculator",
+  "name": "Beer Calculator",
   "icons": [
     {
       "src": "/icon-512.png",
@@ -12,5 +12,5 @@
   "background_color": "#ffffff",
   "display": "standalone",
   "scope": "/",
-  "theme_color": "#ffffff"
+  "theme_color": "#2fa200"
 }
