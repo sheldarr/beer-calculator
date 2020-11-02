@@ -46,7 +46,7 @@ const Color: React.FunctionComponent<Props> = ({ batchVolume, malts }) => {
       <Grid item xs={12}>
         <h2>Color</h2>
       </Grid>
-      <Grid item xs={2}>
+      <Grid item md={2} xs={4}>
         <TextField
           disabled
           label="SRM Morey"
@@ -54,7 +54,7 @@ const Color: React.FunctionComponent<Props> = ({ batchVolume, malts }) => {
           value={srmMorey.toFixed(2)}
         />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item md={2} xs={4}>
         <TextField
           disabled
           label="EBC Morey"
@@ -62,7 +62,7 @@ const Color: React.FunctionComponent<Props> = ({ batchVolume, malts }) => {
           value={ebcMorey.toFixed(2)}
         />
       </Grid>
-      <Grid item>
+      <Grid item md={2} xs={4}>
         <SrmAvatar srmHexColor={getHexColorForSrm(srmMorey)}>
           {Math.round(srmMorey)}
         </SrmAvatar>
