@@ -7,7 +7,7 @@ const NavBar: React.FunctionComponent = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h6">beer-calculator</Typography>
+        <Typography variant="h6">Beer Calculator</Typography>
       </Toolbar>
     </AppBar>
   );

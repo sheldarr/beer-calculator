@@ -1,5 +1,6 @@
 import React from 'react';
 import App from 'next/app';
+import Head from 'next/head';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
@@ -24,6 +25,10 @@ class CustomApp extends App {
     return (
       <>
         <CssBaseline />
+        <Head>
+          <title>Beer Calculator</title>
+          <link href="/favicon.ico" rel="icon" />
+        </Head>
         <ThemeProvider theme={theme}>
           <NavBar />
           <PageTransition
