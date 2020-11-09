@@ -1,13 +1,16 @@
 import { NextPage } from 'next';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Fab from '@material-ui/core/Fab';
 import styled from 'styled-components';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import SaveIcon from '@material-ui/icons/Save';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import SettingsIcon from '@material-ui/icons/Settings';
 import fileDownload from 'js-file-download';
+import SpeedDial from '@material-ui/lab/SpeedDial';
+import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
+import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 
 import useLocalStorageState from 'use-local-storage-state';
 import { calculatePlatoToOg } from '../utils/unitConverters';
@@ -19,19 +22,7 @@ import Malts, { Malt } from '../components/Malts';
 import Mash from '../components/Mash';
 import Params from '../components/Params';
 
-const ResetStateFab = styled(Fab)`
-  position: fixed !important;
-  bottom: 2rem;
-  right: 10rem;
-`;
-
-const LoadStateFab = styled(Fab)`
-  position: fixed !important;
-  bottom: 2rem;
-  right: 6rem;
-`;
-
-const SaveStateFab = styled(Fab)`
+const Settings = styled(SpeedDial)`
   position: fixed !important;
   bottom: 2rem;
   right: 2rem;
@@ -61,6 +52,7 @@ const Home: NextPage = () => {
       weight: 30,
     },
   ]);
+  const [isSpeedDialOpen, setIsSpeedDialOpen] = useState(false);
   const fileInput = useRef<HTMLInputElement>();
 
   const originalGravity = calculatePlatoToOg(density);
@@ -108,76 +100,94 @@ const Home: NextPage = () => {
           />
         </Grid>
       </Grid>
-      <ResetStateFab
-        color="primary"
-        onClick={() => {
-          setBatchVolume.reset();
-          setBoilTime.reset();
-          setDensity.reset();
-          setFinalDensity.reset();
-          setHops.reset();
-          setMalts.reset();
-        }}
-      >
-        <RotateLeftIcon />
-      </ResetStateFab>
-      <LoadStateFab
-        color="primary"
-        onClick={() => {
-          fileInput?.current.click();
-        }}
-      >
-        <input
-          onChange={(event) => {
-            const file = event.target.files[0];
-            const reader = new FileReader();
+      <input
+        onChange={(event) => {
+          const file = event.target.files[0];
+          const reader = new FileReader();
 
-            reader.onload = function (event) {
-              const {
-                batchVolume,
-                boilTime,
-                density,
-                finalDensity,
-                hops,
-                malts,
-              } = JSON.parse(event.target.result as string);
-
-              setBatchVolume(batchVolume);
-              setBoilTime(boilTime);
-              setDensity(density);
-              setFinalDensity(finalDensity);
-              setHops(hops);
-              setMalts(malts);
-
-              fileInput.current.value = '';
-            };
-
-            reader.readAsText(file);
-          }}
-          ref={fileInput}
-          style={{ display: 'none' }}
-          type="file"
-        />
-        <CloudUploadIcon />
-      </LoadStateFab>
-      <SaveStateFab
-        color="primary"
-        onClick={() => {
-          fileDownload(
-            JSON.stringify({
+          reader.onload = function (event) {
+            const {
               batchVolume,
               boilTime,
               density,
               finalDensity,
               hops,
               malts,
-            }),
-            'beer-calculator.json',
-          );
+            } = JSON.parse(event.target.result as string);
+
+            setBatchVolume(batchVolume);
+            setBoilTime(boilTime);
+            setDensity(density);
+            setFinalDensity(finalDensity);
+            setHops(hops);
+            setMalts(malts);
+
+            fileInput.current.value = '';
+          };
+
+          reader.readAsText(file);
         }}
+        ref={fileInput}
+        style={{ display: 'none' }}
+        type="file"
+      />
+      <Settings
+        ariaLabel="Settings"
+        icon={<SpeedDialIcon openIcon={<SettingsIcon />} />}
+        onClose={() => {
+          setIsSpeedDialOpen(false);
+        }}
+        onOpen={() => {
+          setIsSpeedDialOpen(true);
+        }}
+        open={isSpeedDialOpen}
       >
-        <SaveIcon />
-      </SaveStateFab>
+        {[
+          {
+            icon: <RotateLeftIcon />,
+            name: 'Reset',
+            onClick: () => {
+              setBatchVolume.reset();
+              setBoilTime.reset();
+              setDensity.reset();
+              setFinalDensity.reset();
+              setHops.reset();
+              setMalts.reset();
+            },
+          },
+          {
+            icon: <CloudUploadIcon />,
+            name: 'Load',
+            onClick: () => {
+              fileInput?.current.click();
+            },
+          },
+          {
+            icon: <SaveIcon />,
+            name: 'Save',
+            onClick: () => {
+              fileDownload(
+                JSON.stringify({
+                  batchVolume,
+                  boilTime,
+                  density,
+                  finalDensity,
+                  hops,
+                  malts,
+                }),
+                'beer-calculator.json',
+              );
+            },
+          },
+        ].map((action) => (
+          <SpeedDialAction
+            icon={action.icon}
+            key={action.name}
+            onClick={action.onClick}
+            tooltipTitle={action.name}
+          />
+        ))}
+      </Settings>
     </Container>
   );
 };
