@@ -1,11 +1,12 @@
 import { NextPage } from 'next';
-import React from 'react';
+import React, { useRef } from 'react';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
 import styled from 'styled-components';
-import RotateLeft from '@material-ui/icons/RotateLeft';
-import Save from '@material-ui/icons/Save';
+import RotateLeftIcon from '@material-ui/icons/RotateLeft';
+import SaveIcon from '@material-ui/icons/Save';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import fileDownload from 'js-file-download';
 
 import useLocalStorageState from 'use-local-storage-state';
@@ -19,6 +20,12 @@ import Mash from '../components/Mash';
 import Params from '../components/Params';
 
 const ResetStateFab = styled(Fab)`
+  position: fixed !important;
+  bottom: 2rem;
+  right: 10rem;
+`;
+
+const LoadStateFab = styled(Fab)`
   position: fixed !important;
   bottom: 2rem;
   right: 6rem;
@@ -54,6 +61,7 @@ const Home: NextPage = () => {
       weight: 30,
     },
   ]);
+  const fileInput = useRef<HTMLInputElement>();
 
   const originalGravity = calculatePlatoToOg(density);
 
@@ -111,8 +119,47 @@ const Home: NextPage = () => {
           setMalts.reset();
         }}
       >
-        <RotateLeft />
+        <RotateLeftIcon />
       </ResetStateFab>
+      <LoadStateFab
+        color="primary"
+        onClick={() => {
+          fileInput?.current.click();
+        }}
+      >
+        <input
+          onChange={(event) => {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function (event) {
+              const {
+                batchVolume,
+                boilTime,
+                density,
+                finalDensity,
+                hops,
+                malts,
+              } = JSON.parse(event.target.result as string);
+
+              setBatchVolume(batchVolume);
+              setBoilTime(boilTime);
+              setDensity(density);
+              setFinalDensity(finalDensity);
+              setHops(hops);
+              setMalts(malts);
+
+              fileInput.current.value = '';
+            };
+
+            reader.readAsText(file);
+          }}
+          ref={fileInput}
+          style={{ display: 'none' }}
+          type="file"
+        />
+        <CloudUploadIcon />
+      </LoadStateFab>
       <SaveStateFab
         color="primary"
         onClick={() => {
@@ -129,7 +176,7 @@ const Home: NextPage = () => {
           );
         }}
       >
-        <Save />
+        <SaveIcon />
       </SaveStateFab>
     </Container>
   );
