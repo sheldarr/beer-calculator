@@ -2,6 +2,9 @@ import { NextPage } from 'next';
 import React from 'react';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import Fab from '@material-ui/core/Fab';
+import styled from 'styled-components';
+import RotateLeft from '@material-ui/icons/RotateLeft';
 
 import useLocalStorageState from 'use-local-storage-state';
 import { calculatePlatoToOg } from '../utils/unitConverters';
@@ -12,6 +15,12 @@ import Ibu from '../components/Ibu';
 import Malts, { Malt } from '../components/Malts';
 import Mash from '../components/Mash';
 import Params from '../components/Params';
+
+const ResetStateFab = styled(Fab)`
+  position: fixed !important;
+  bottom: 2rem;
+  right: 2rem;
+`;
 
 const Home: NextPage = () => {
   const [batchVolume, setBatchVolume] = useLocalStorageState('batchVolume', 23);
@@ -83,6 +92,19 @@ const Home: NextPage = () => {
           />
         </Grid>
       </Grid>
+      <ResetStateFab
+        color="primary"
+        onClick={() => {
+          setBatchVolume.reset();
+          setBoilTime.reset();
+          setDensity.reset();
+          setFinalDensity.reset();
+          setHops.reset();
+          setMalts.reset();
+        }}
+      >
+        <RotateLeft />
+      </ResetStateFab>
     </Container>
   );
 };
