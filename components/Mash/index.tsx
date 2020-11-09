@@ -2,14 +2,17 @@ import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import useLocalStorageState from 'use-local-storage-state';
 
 import { Malt } from '../Malts';
 
 interface Props {
   batchVolume: number;
+  efficiency: number;
   malts: Malt[];
+  onEfficiencyChange: (efficiency: number) => void;
   onEstimatedDensityChange: (estimatedDensity: number) => void;
+  onWaterGrainRatioChange: (waterGrainRatio: number) => void;
+  waterGrainRatio: number;
 }
 
 const EVAPORATION_LOSS_FACTOR = 0.15;
@@ -19,15 +22,13 @@ const OTHER_LOSS_FACTOR = 0.1;
 
 const Mash: React.FunctionComponent<Props> = ({
   batchVolume,
+  efficiency,
   malts,
+  onEfficiencyChange,
   onEstimatedDensityChange,
+  onWaterGrainRatioChange,
+  waterGrainRatio,
 }) => {
-  const [efficiency, setEfficiency] = useLocalStorageState('efficiency', 70);
-  const [waterGrainRatio, setWaterGrainRatio] = useLocalStorageState(
-    'waterGrainRatio',
-    2.5,
-  );
-
   const [theoreticalExtract, realExtract, totalWeight] = malts.reduce(
     ([theoreticalExtract, realExtract, totalWeight], malt) => {
       return [
@@ -76,7 +77,7 @@ const Mash: React.FunctionComponent<Props> = ({
           }}
           label="Efficiency"
           onChange={(event) => {
-            setEfficiency(Number(event.target.value));
+            onEfficiencyChange(Number(event.target.value));
           }}
           type="number"
           value={efficiency}
@@ -92,7 +93,7 @@ const Mash: React.FunctionComponent<Props> = ({
           }}
           label="Water/Grain ratio"
           onChange={(event) => {
-            setWaterGrainRatio(Number(event.target.value));
+            onWaterGrainRatioChange(Number(event.target.value));
           }}
           type="number"
           value={waterGrainRatio.toFixed(2)}

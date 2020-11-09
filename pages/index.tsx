@@ -52,6 +52,12 @@ const Home: NextPage = () => {
       weight: 30,
     },
   ]);
+  const [efficiency, setEfficiency] = useLocalStorageState('efficiency', 70);
+  const [waterGrainRatio, setWaterGrainRatio] = useLocalStorageState(
+    'waterGrainRatio',
+    2.5,
+  );
+
   const [isSpeedDialOpen, setIsSpeedDialOpen] = useState(false);
   const fileInput = useRef<HTMLInputElement>();
 
@@ -84,8 +90,12 @@ const Home: NextPage = () => {
         <Grid item xs={12}>
           <Mash
             batchVolume={batchVolume}
+            efficiency={efficiency}
             malts={malts}
+            onEfficiencyChange={setEfficiency}
             onEstimatedDensityChange={setDensity}
+            onWaterGrainRatioChange={setWaterGrainRatio}
+            waterGrainRatio={waterGrainRatio}
           />
         </Grid>
         <Grid item xs={12}>
@@ -110,17 +120,21 @@ const Home: NextPage = () => {
               batchVolume,
               boilTime,
               density,
+              efficiency,
               finalDensity,
               hops,
               malts,
+              waterGrainRatio,
             } = JSON.parse(event.target.result as string);
 
             setBatchVolume(batchVolume);
             setBoilTime(boilTime);
             setDensity(density);
+            setEfficiency(efficiency);
             setFinalDensity(finalDensity);
             setHops(hops);
             setMalts(malts);
+            setWaterGrainRatio(waterGrainRatio);
 
             fileInput.current.value = '';
           };
@@ -150,9 +164,11 @@ const Home: NextPage = () => {
               setBatchVolume.reset();
               setBoilTime.reset();
               setDensity.reset();
+              setEfficiency.reset();
               setFinalDensity.reset();
               setHops.reset();
               setMalts.reset();
+              setWaterGrainRatio.reset();
             },
           },
           {
@@ -171,9 +187,11 @@ const Home: NextPage = () => {
                   batchVolume,
                   boilTime,
                   density,
+                  efficiency,
                   finalDensity,
                   hops,
                   malts,
+                  waterGrainRatio,
                 }),
                 'beer-calculator.json',
               );
