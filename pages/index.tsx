@@ -5,6 +5,8 @@ import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
 import styled from 'styled-components';
 import RotateLeft from '@material-ui/icons/RotateLeft';
+import Save from '@material-ui/icons/Save';
+import fileDownload from 'js-file-download';
 
 import useLocalStorageState from 'use-local-storage-state';
 import { calculatePlatoToOg } from '../utils/unitConverters';
@@ -17,6 +19,12 @@ import Mash from '../components/Mash';
 import Params from '../components/Params';
 
 const ResetStateFab = styled(Fab)`
+  position: fixed !important;
+  bottom: 2rem;
+  right: 6rem;
+`;
+
+const SaveStateFab = styled(Fab)`
   position: fixed !important;
   bottom: 2rem;
   right: 2rem;
@@ -105,6 +113,24 @@ const Home: NextPage = () => {
       >
         <RotateLeft />
       </ResetStateFab>
+      <SaveStateFab
+        color="primary"
+        onClick={() => {
+          fileDownload(
+            JSON.stringify({
+              batchVolume,
+              boilTime,
+              density,
+              finalDensity,
+              hops,
+              malts,
+            }),
+            'beer-calculator.json',
+          );
+        }}
+      >
+        <Save />
+      </SaveStateFab>
     </Container>
   );
 };
