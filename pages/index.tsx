@@ -1,8 +1,9 @@
 import { NextPage } from 'next';
-import React, { useState } from 'react';
+import React from 'react';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
+import useLocalStorageState from 'use-local-storage-state';
 import { calculatePlatoToOg } from '../utils/unitConverters';
 import Abv from '../components/Abv';
 import Color from '../components/Color';
@@ -13,11 +14,14 @@ import Mash from '../components/Mash';
 import Params from '../components/Params';
 
 const Home: NextPage = () => {
-  const [batchVolume, setBatchVolume] = useState(23);
-  const [boilTime, setBoilTime] = useState(70);
-  const [density, setDensity] = useState(12);
-  const [finalDensity, setFinalDensity] = useState(3);
-  const [malts, setMalts] = useState<Malt[]>([
+  const [batchVolume, setBatchVolume] = useLocalStorageState('batchVolume', 23);
+  const [boilTime, setBoilTime] = useLocalStorageState('boilTime', 70);
+  const [density, setDensity] = useLocalStorageState('density', 12);
+  const [finalDensity, setFinalDensity] = useLocalStorageState(
+    'finalDensity',
+    3,
+  );
+  const [malts, setMalts] = useLocalStorageState<Malt[]>('malts', [
     {
       ebc: 6.25,
       extract: 81.6,
@@ -25,7 +29,7 @@ const Home: NextPage = () => {
       weight: 5,
     },
   ]);
-  const [hops, setHops] = useState<Hop[]>([
+  const [hops, setHops] = useLocalStorageState<Hop[]>('hops', [
     {
       alphaAcids: 6.7,
       boilTime,

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import useLocalStorageState from 'use-local-storage-state';
 
 import { Malt } from '../Malts';
 
@@ -21,8 +22,11 @@ const Mash: React.FunctionComponent<Props> = ({
   malts,
   onEstimatedDensityChange,
 }) => {
-  const [efficiency, setEfficiency] = useState(70);
-  const [waterGrainRatio, setWaterGrainRatio] = useState(2.5);
+  const [efficiency, setEfficiency] = useLocalStorageState('efficiency', 70);
+  const [waterGrainRatio, setWaterGrainRatio] = useLocalStorageState(
+    'waterGrainRatio',
+    2.5,
+  );
 
   const [theoreticalExtract, realExtract, totalWeight] = malts.reduce(
     ([theoreticalExtract, realExtract, totalWeight], malt) => {
