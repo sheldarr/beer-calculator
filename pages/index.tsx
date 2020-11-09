@@ -15,6 +15,7 @@ import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import useLocalStorageState from 'use-local-storage-state';
 import { calculatePlatoToOg } from '../utils/unitConverters';
 import Abv from '../components/Abv';
+import DillutionBoilOff from '../components/DillutionBoilOff';
 import Color from '../components/Color';
 import Hops, { Hop } from '../components/Hops';
 import Ibu from '../components/Ibu';
@@ -80,6 +81,9 @@ const Home: NextPage = () => {
         </Grid>
         <Grid item xs={12}>
           <Abv finalDensity={finalDensity} originalDensity={density} />
+        </Grid>
+        <Grid item xs={12}>
+          <DillutionBoilOff batchVolume={batchVolume} density={density} />
         </Grid>
         <Grid item xs={12}>
           <Malts malts={malts} onMaltsChange={setMalts} />
