@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
+import useSwr from 'swr';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
 
 import { calculatePlatoToOg } from '../../utils/unitConverters';
 
@@ -14,7 +18,11 @@ interface Props {
   onBoilTimeChange: (batchVolume: number) => void;
   onDensityChange: (density: number) => void;
   onFinalDensityChange: (finalDensity: number) => void;
+  onYeastChange: (yeast: string) => void;
+  yeast: string;
 }
+
+const fetcher = (url: string) => fetch(url).then((response) => response.json());
 
 const Params: React.FunctionComponent<Props> = ({
   batchVolume,
@@ -25,7 +33,23 @@ const Params: React.FunctionComponent<Props> = ({
   onBoilTimeChange,
   onDensityChange,
   onFinalDensityChange,
+  onYeastChange,
+  yeast,
 }) => {
+  const { data: yeasts, mutate } = useSwr<string[]>('/api/yeasts', fetcher, {
+    initialData: [],
+  });
+
+  useEffect(() => {
+    mutate();
+  }, []);
+
+  useEffect(() => {
+    const [yeast] = yeasts;
+
+    onYeastChange(yeast);
+  }, [yeasts]);
+
   calculatePlatoToOg(density);
 
   return (
@@ -122,6 +146,27 @@ const Params: React.FunctionComponent<Props> = ({
           type="number"
           value={calculatePlatoToOg(finalDensity).toFixed(3)}
         />
+      </Grid>
+      <Grid item md={2} sm={4} xs={6}>
+        <InputLabel shrink id="demo-simple-select-placeholder-label-label">
+          Yeast
+        </InputLabel>
+        <Select
+          displayEmpty
+          fullWidth
+          onChange={(event) => {
+            onYeastChange(event.target.value as string);
+          }}
+          value={yeast}
+        >
+          {yeasts.map((yeast) => (
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            <MenuItem key={yeast} value={yeast}>
+              {yeast}
+            </MenuItem>
+          ))}
+        </Select>
       </Grid>
     </Grid>
   );

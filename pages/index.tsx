@@ -58,6 +58,7 @@ const Home: NextPage = () => {
     'waterGrainRatio',
     2.5,
   );
+  const [yeast, setYeast] = useLocalStorageState('yeast', 'Saflager S-23');
 
   const [isSpeedDialOpen, setIsSpeedDialOpen] = useState(false);
   const fileInput = useRef<HTMLInputElement>();
@@ -77,6 +78,8 @@ const Home: NextPage = () => {
             onBoilTimeChange={setBoilTime}
             onDensityChange={setDensity}
             onFinalDensityChange={setFinalDensity}
+            onYeastChange={setYeast}
+            yeast={yeast}
           />
         </Grid>
         <Grid item xs={12}>
@@ -129,6 +132,7 @@ const Home: NextPage = () => {
               hops,
               malts,
               waterGrainRatio,
+              yeast,
             } = JSON.parse(event.target.result as string);
 
             setBatchVolume(batchVolume);
@@ -139,6 +143,7 @@ const Home: NextPage = () => {
             setHops(hops);
             setMalts(malts);
             setWaterGrainRatio(waterGrainRatio);
+            setYeast(yeast);
 
             fileInput.current.value = '';
           };
@@ -173,6 +178,7 @@ const Home: NextPage = () => {
               setHops.reset();
               setMalts.reset();
               setWaterGrainRatio.reset();
+              setYeast.reset();
             },
           },
           {
@@ -196,6 +202,7 @@ const Home: NextPage = () => {
                   hops,
                   malts,
                   waterGrainRatio,
+                  yeast,
                 }),
                 'beerlog.json',
               );

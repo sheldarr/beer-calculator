@@ -1,32 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-export interface PredefinedYeast {
-  fermantaion: 'bottom' | 'top';
-  name: string;
-}
-
-const YEASTS: PredefinedYeast[] = [
-  {
-    fermantaion: 'bottom',
-    name: 'Saflager S-23',
-  },
-  {
-    fermantaion: 'bottom',
-    name: 'Saflager W-34/70',
-  },
-  {
-    fermantaion: 'top',
-    name: 'Safale S-04',
-  },
-  {
-    fermantaion: 'top',
-    name: 'Safale US-05',
-  },
+const YEASTS: string[] = [
+  'Saflager S-23',
+  'Saflager W-34/70',
+  'Safale S-04',
+  'Safale US-05',
 ];
 
-export default (
-  req: NextApiRequest,
-  res: NextApiResponse<PredefinedYeast[]>,
-) => {
+export default (req: NextApiRequest, res: NextApiResponse<string[]>) => {
   res.status(200).json(YEASTS);
 };
