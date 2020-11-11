@@ -1,6 +1,5 @@
 import { NextPage } from 'next';
 import React, { useRef, useState } from 'react';
-import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
@@ -22,6 +21,7 @@ import Ibu from '../components/Ibu';
 import Malts, { Malt } from '../components/Malts';
 import Mash from '../components/Mash';
 import Params from '../components/Params';
+import Page from '../components/Page';
 
 const Settings = styled(SpeedDial)`
   position: fixed !important;
@@ -65,7 +65,7 @@ const Home: NextPage = () => {
   const originalGravity = calculatePlatoToOg(density);
 
   return (
-    <Container>
+    <Page>
       <Grid container spacing={4}>
         <Grid item xs={12}>
           <Params
@@ -210,7 +210,7 @@ const Home: NextPage = () => {
           />
         ))}
       </Settings>
-    </Container>
+    </Page>
   );
 };
 

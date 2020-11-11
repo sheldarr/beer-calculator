@@ -26,7 +26,6 @@ class CustomApp extends App {
       <>
         <CssBaseline />
         <Head>
-          <title>Beer Calculator</title>
           <link href="/favicon.ico" rel="icon" />
         </Head>
         <ThemeProvider theme={theme}>
