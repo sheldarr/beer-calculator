@@ -197,7 +197,7 @@ const Home: NextPage = () => {
                   malts,
                   waterGrainRatio,
                 }),
-                'beer-calculator.json',
+                'beerlog.json',
               );
             },
           },
