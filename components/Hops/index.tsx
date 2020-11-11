@@ -45,7 +45,9 @@ const Hops: React.FunctionComponent<Props> = ({
     },
   );
 
-  mutate();
+  useEffect(() => {
+    mutate();
+  }, []);
 
   const [predefinedHop, setPredefinedHop] = useState<PredefinedHop | undefined>(
     undefined,
@@ -122,10 +124,10 @@ const Hops: React.FunctionComponent<Props> = ({
         </Grid>
       </Grid>
       {hops.map((hop, index) => (
-        <Grid item key={index} spacing={2} xs={12}>
+        <Grid item key={index} xs={12}>
           <Card variant="outlined">
             <CardContent>
-              <Grid container key={index} spacing={2} xs={12}>
+              <Grid container key={index} spacing={2}>
                 <Grid item md={2} sm={4} xs={6}>
                   <TextField
                     disabled

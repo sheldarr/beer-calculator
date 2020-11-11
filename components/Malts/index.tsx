@@ -37,7 +37,9 @@ const Malts: React.FunctionComponent<Props> = ({ malts, onMaltsChange }) => {
     },
   );
 
-  mutate();
+  useEffect(() => {
+    mutate();
+  }, []);
 
   const [predefinedMalt, setPredefinedMalt] = useState<
     PredefinedMalt | undefined
@@ -107,10 +109,10 @@ const Malts: React.FunctionComponent<Props> = ({ malts, onMaltsChange }) => {
         </Grid>
       </Grid>
       {malts.map((malt, index) => (
-        <Grid item key={index} spacing={2} xs={12}>
+        <Grid item key={index} xs={12}>
           <Card variant="outlined">
             <CardContent>
-              <Grid container key={index} spacing={2} xs={12}>
+              <Grid container key={index} spacing={2}>
                 <Grid item md={2} sm={4} xs={6}>
                   <TextField
                     disabled
