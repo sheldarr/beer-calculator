@@ -9,6 +9,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import { KeyboardDatePicker } from '@material-ui/pickers';
+import FlipMove from 'react-flip-move';
 
 export interface FermentationEntry {
   date: Date;
@@ -73,65 +74,66 @@ const Fermentation: React.FunctionComponent<Props> = ({
           </IconButton>
         </Grid>
       </Grid>
-      <Grid item xs={12}></Grid>
-      {entries.map((entry, index) => (
-        <Grid item key={index} xs={12}>
-          <Card variant="outlined">
-            <CardContent>
-              <Grid container key={index} spacing={2}>
-                <Grid item md={2} sm={4} xs={6}>
-                  <KeyboardDatePicker
-                    fullWidth
-                    format="dd/MM/yyyy"
-                    label="Date"
-                    onChange={(date) => {
-                      updateEntry(index, {
-                        ...entry,
-                        date,
-                      });
-                    }}
-                    value={entry.date}
-                  />
+      <FlipMove typeName={null}>
+        {entries.map((entry, index) => (
+          <Grid item key={entry.date.getTime()} xs={12}>
+            <Card variant="outlined">
+              <CardContent>
+                <Grid container spacing={2}>
+                  <Grid item md={2} sm={4} xs={6}>
+                    <KeyboardDatePicker
+                      fullWidth
+                      format="dd/MM/yyyy"
+                      label="Date"
+                      onChange={(date) => {
+                        updateEntry(index, {
+                          ...entry,
+                          date,
+                        });
+                      }}
+                      value={entry.date}
+                    />
+                  </Grid>
+                  <Grid item md={2} sm={4} xs={6}>
+                    <TextField
+                      fullWidth
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">°P</InputAdornment>
+                        ),
+                      }}
+                      inputProps={{
+                        max: density,
+                        min: 0,
+                        step: 0.1,
+                      }}
+                      label="Density"
+                      onChange={(event) => {
+                        updateEntry(index, {
+                          ...entry,
+                          density: Number(event.target.value),
+                        });
+                      }}
+                      type="number"
+                      value={entry.density}
+                    />
+                  </Grid>
                 </Grid>
-                <Grid item md={2} sm={4} xs={6}>
-                  <TextField
-                    fullWidth
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">°P</InputAdornment>
-                      ),
-                    }}
-                    inputProps={{
-                      max: density,
-                      min: 0,
-                      step: 0.1,
-                    }}
-                    label="Density"
-                    onChange={(event) => {
-                      updateEntry(index, {
-                        ...entry,
-                        density: Number(event.target.value),
-                      });
-                    }}
-                    type="number"
-                    value={entry.density}
-                  />
-                </Grid>
-              </Grid>
-            </CardContent>
-            <CardActions>
-              <Button
-                color="secondary"
-                onClick={() => {
-                  removeEntry(index);
-                }}
-              >
-                Remove
-              </Button>
-            </CardActions>
-          </Card>
-        </Grid>
-      ))}
+              </CardContent>
+              <CardActions>
+                <Button
+                  color="secondary"
+                  onClick={() => {
+                    removeEntry(index);
+                  }}
+                >
+                  Remove
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
+        ))}
+      </FlipMove>
     </Grid>
   );
 };

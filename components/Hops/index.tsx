@@ -11,6 +11,7 @@ import useSwr from 'swr';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import FlipMove from 'react-flip-move';
 
 import { Minutes } from '../../utils/ibu';
 import { PredefinedHop } from '../../pages/api/hops';
@@ -123,100 +124,102 @@ const Hops: React.FunctionComponent<Props> = ({
           </IconButton>
         </Grid>
       </Grid>
-      {hops.map((hop, index) => (
-        <Grid item key={index} xs={12}>
-          <Card variant="outlined">
-            <CardContent>
-              <Grid container key={index} spacing={2}>
-                <Grid item md={2} sm={4} xs={6}>
-                  <TextField
-                    disabled
-                    label="Name"
-                    type="text"
-                    value={hop.name}
-                  />
+      <FlipMove typeName={null}>
+        {hops.map((hop, index) => (
+          <Grid item key={hop.name} xs={12}>
+            <Card variant="outlined">
+              <CardContent>
+                <Grid container spacing={2}>
+                  <Grid item md={2} sm={4} xs={6}>
+                    <TextField
+                      disabled
+                      label="Name"
+                      type="text"
+                      value={hop.name}
+                    />
+                  </Grid>
+                  <Grid item md={2} sm={4} xs={6}>
+                    <TextField
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">g</InputAdornment>
+                        ),
+                      }}
+                      inputProps={{
+                        min: 0,
+                      }}
+                      label="Weight"
+                      onChange={(event) => {
+                        updateHop(index, {
+                          ...hop,
+                          weight: Number(event.target.value),
+                        });
+                      }}
+                      type="number"
+                      value={hop.weight}
+                    />
+                  </Grid>
+                  <Grid item md={2} sm={4} xs={6}>
+                    <TextField
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">%</InputAdornment>
+                        ),
+                      }}
+                      inputProps={{
+                        min: 0,
+                        step: 0.1,
+                      }}
+                      label="Alpha acids"
+                      onChange={(event) => {
+                        updateHop(index, {
+                          ...hop,
+                          alphaAcids: Number(event.target.value),
+                        });
+                      }}
+                      type="number"
+                      value={hop.alphaAcids}
+                    />
+                  </Grid>
+                  <Grid item md={2} sm={4} xs={6}>
+                    <TextField
+                      fullWidth
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">min</InputAdornment>
+                        ),
+                      }}
+                      inputProps={{
+                        max: boilTime,
+                        min: 1,
+                      }}
+                      label="Boil time"
+                      onChange={(event) => {
+                        updateHop(index, {
+                          ...hop,
+                          boilTime: Number(event.target.value),
+                        });
+                      }}
+                      type="number"
+                      value={hop.boilTime}
+                    />
+                  </Grid>
                 </Grid>
-                <Grid item md={2} sm={4} xs={6}>
-                  <TextField
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">g</InputAdornment>
-                      ),
-                    }}
-                    inputProps={{
-                      min: 0,
-                    }}
-                    label="Weight"
-                    onChange={(event) => {
-                      updateHop(index, {
-                        ...hop,
-                        weight: Number(event.target.value),
-                      });
-                    }}
-                    type="number"
-                    value={hop.weight}
-                  />
-                </Grid>
-                <Grid item md={2} sm={4} xs={6}>
-                  <TextField
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">%</InputAdornment>
-                      ),
-                    }}
-                    inputProps={{
-                      min: 0,
-                      step: 0.1,
-                    }}
-                    label="Alpha acids"
-                    onChange={(event) => {
-                      updateHop(index, {
-                        ...hop,
-                        alphaAcids: Number(event.target.value),
-                      });
-                    }}
-                    type="number"
-                    value={hop.alphaAcids}
-                  />
-                </Grid>
-                <Grid item md={2} sm={4} xs={6}>
-                  <TextField
-                    fullWidth
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">min</InputAdornment>
-                      ),
-                    }}
-                    inputProps={{
-                      max: boilTime,
-                      min: 1,
-                    }}
-                    label="Boil time"
-                    onChange={(event) => {
-                      updateHop(index, {
-                        ...hop,
-                        boilTime: Number(event.target.value),
-                      });
-                    }}
-                    type="number"
-                    value={hop.boilTime}
-                  />
-                </Grid>
-              </Grid>
-            </CardContent>
-            <CardActions>
-              <Button
-                color="secondary"
-                onClick={() => {
-                  removeHop(index);
-                }}
-              >
-                Remove
-              </Button>
-            </CardActions>
-          </Card>
-        </Grid>
-      ))}
+              </CardContent>
+              <CardActions>
+                <Button
+                  color="secondary"
+                  onClick={() => {
+                    removeHop(index);
+                  }}
+                >
+                  Remove
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
+        ))}
+      </FlipMove>
     </Grid>
   );
 };
