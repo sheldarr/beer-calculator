@@ -5,6 +5,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import { PageTransition } from 'next-page-transitions';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
@@ -29,14 +31,16 @@ class CustomApp extends App {
           <link href="/favicon.ico" rel="icon" />
         </Head>
         <ThemeProvider theme={theme}>
-          <NavBar />
-          <PageTransition
-            classNames="page-transition"
-            key={router.route}
-            timeout={300}
-          >
-            <Component {...pageProps} />
-          </PageTransition>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <NavBar />
+            <PageTransition
+              classNames="page-transition"
+              key={router.route}
+              timeout={300}
+            >
+              <Component {...pageProps} />
+            </PageTransition>
+          </MuiPickersUtilsProvider>
         </ThemeProvider>
         <style global jsx>{`
           .page-transition-enter {

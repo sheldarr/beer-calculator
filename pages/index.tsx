@@ -22,6 +22,7 @@ import Malts, { Malt } from '../components/Malts';
 import Mash from '../components/Mash';
 import Params from '../components/Params';
 import Page from '../components/Page';
+import Fermentation, { FermentationEntry } from '../components/Fermentation';
 
 const Settings = styled(SpeedDial)`
   position: fixed !important;
@@ -59,6 +60,9 @@ const Home: NextPage = () => {
     2.5,
   );
   const [yeast, setYeast] = useLocalStorageState('yeast', 'Saflager S-23');
+  const [fermentationEntries, setFermentationEntries] = useLocalStorageState<
+    FermentationEntry[]
+  >('fermentationEntries', []);
 
   const [isSpeedDialOpen, setIsSpeedDialOpen] = useState(false);
   const fileInput = useRef<HTMLInputElement>();
@@ -116,6 +120,13 @@ const Home: NextPage = () => {
             originalGravity={originalGravity}
           />
         </Grid>
+        <Grid item xs={12}>
+          <Fermentation
+            density={density}
+            entries={fermentationEntries}
+            onEntriesChange={setFermentationEntries}
+          />
+        </Grid>
       </Grid>
       <input
         onChange={(event) => {
@@ -128,6 +139,7 @@ const Home: NextPage = () => {
               boilTime,
               density,
               efficiency,
+              fermentationEntries,
               finalDensity,
               hops,
               malts,
@@ -139,6 +151,7 @@ const Home: NextPage = () => {
             setBoilTime(boilTime);
             setDensity(density);
             setEfficiency(efficiency);
+            setFermentationEntries(fermentationEntries);
             setFinalDensity(finalDensity);
             setHops(hops);
             setMalts(malts);
@@ -174,6 +187,7 @@ const Home: NextPage = () => {
               setBoilTime.reset();
               setDensity.reset();
               setEfficiency.reset();
+              setFermentationEntries.reset();
               setFinalDensity.reset();
               setHops.reset();
               setMalts.reset();
@@ -198,6 +212,7 @@ const Home: NextPage = () => {
                   boilTime,
                   density,
                   efficiency,
+                  fermentationEntries,
                   finalDensity,
                   hops,
                   malts,

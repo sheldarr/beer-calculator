@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import { KeyboardDatePicker } from '@material-ui/pickers';
 
 export interface FermentationEntry {
   date: Date;
@@ -54,27 +55,44 @@ const Fermentation: React.FunctionComponent<Props> = ({
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12}>
-        <h2>Fermentation</h2>
+      <Grid container item>
+        <Grid item>
+          <h2>Fermentation</h2>
+        </Grid>
+        <Grid item>
+          <IconButton
+            color="primary"
+            onClick={() => {
+              addEntry({
+                date: new Date(),
+                density,
+              });
+            }}
+          >
+            <AddCircleIcon />
+          </IconButton>
+        </Grid>
       </Grid>
-      <Grid item xs={12}>
-        <IconButton
-          color="primary"
-          onClick={() => {
-            addEntry({
-              date: new Date(),
-              density,
-            });
-          }}
-        >
-          <AddCircleIcon />
-        </IconButton>
-      </Grid>
+      <Grid item xs={12}></Grid>
       {entries.map((entry, index) => (
         <Grid item key={index} xs={12}>
           <Card variant="outlined">
             <CardContent>
               <Grid container key={index} spacing={2}>
+                <Grid item md={2} sm={4} xs={6}>
+                  <KeyboardDatePicker
+                    fullWidth
+                    format="dd/MM/yyyy"
+                    label="Date"
+                    onChange={(date) => {
+                      updateEntry(index, {
+                        ...entry,
+                        date,
+                      });
+                    }}
+                    value={entry.date}
+                  />
+                </Grid>
                 <Grid item md={2} sm={4} xs={6}>
                   <TextField
                     fullWidth
