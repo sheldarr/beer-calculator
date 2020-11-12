@@ -96,7 +96,7 @@ const Params: React.FunctionComponent<Props> = ({
           }}
           inputProps={{
             min: 0,
-            step: 0.5,
+            step: 0.1,
           }}
           label="Density"
           onChange={(event) => {
@@ -115,7 +115,7 @@ const Params: React.FunctionComponent<Props> = ({
           inputProps={{
             max: density,
             min: 0,
-            step: 0.5,
+            step: 0.1,
           }}
           label="Final density"
           onChange={(event) => {
