@@ -11,7 +11,6 @@ import useSwr from 'swr';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import FlipMove from 'react-flip-move';
 
 import { PredefinedMalt } from '../../pages/api/malts';
 
@@ -109,103 +108,101 @@ const Malts: React.FunctionComponent<Props> = ({ malts, onMaltsChange }) => {
           </IconButton>
         </Grid>
       </Grid>
-      <FlipMove typeName={null}>
-        {malts.map((malt, index) => (
-          <Grid item key={malt.name} xs={12}>
-            <Card variant="outlined">
-              <CardContent>
-                <Grid container spacing={2}>
-                  <Grid item md={2} sm={4} xs={6}>
-                    <TextField
-                      disabled
-                      label="Name"
-                      type="text"
-                      value={malt.name}
-                    />
-                  </Grid>
-                  <Grid item md={2} sm={4} xs={6}>
-                    <TextField
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">kg</InputAdornment>
-                        ),
-                      }}
-                      inputProps={{
-                        min: 0,
-                        step: 0.1,
-                      }}
-                      label="Weight"
-                      onChange={(event) => {
-                        updateMalt(index, {
-                          ...malt,
-                          weight: Number(event.target.value),
-                        });
-                      }}
-                      type="number"
-                      value={malt.weight}
-                    />
-                  </Grid>
-                  <Grid item md={2} sm={4} xs={6}>
-                    <TextField
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">EBC</InputAdornment>
-                        ),
-                      }}
-                      inputProps={{
-                        min: 1,
-                      }}
-                      label="Color"
-                      onChange={(event) => {
-                        updateMalt(index, {
-                          ...malt,
-                          ebc: Number(event.target.value),
-                        });
-                      }}
-                      type="number"
-                      value={malt.ebc}
-                    />
-                  </Grid>
-                  <Grid item md={2} sm={4} xs={6}>
-                    <TextField
-                      fullWidth
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">%</InputAdornment>
-                        ),
-                      }}
-                      inputProps={{
-                        max: 100,
-                        min: 1,
-                        step: 0.1,
-                      }}
-                      label="Extract"
-                      onChange={(event) => {
-                        updateMalt(index, {
-                          ...malt,
-                          extract: Number(event.target.value),
-                        });
-                      }}
-                      type="number"
-                      value={malt.extract}
-                    />
-                  </Grid>
+      {malts.map((malt, index) => (
+        <Grid item key={index} xs={12}>
+          <Card variant="outlined">
+            <CardContent>
+              <Grid container spacing={2}>
+                <Grid item md={2} sm={4} xs={6}>
+                  <TextField
+                    disabled
+                    label="Name"
+                    type="text"
+                    value={malt.name}
+                  />
                 </Grid>
-              </CardContent>
-              <CardActions>
-                <Button
-                  color="secondary"
-                  onClick={() => {
-                    removeMalt(index);
-                  }}
-                >
-                  Remove
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
-        ))}
-      </FlipMove>
+                <Grid item md={2} sm={4} xs={6}>
+                  <TextField
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">kg</InputAdornment>
+                      ),
+                    }}
+                    inputProps={{
+                      min: 0,
+                      step: 0.1,
+                    }}
+                    label="Weight"
+                    onChange={(event) => {
+                      updateMalt(index, {
+                        ...malt,
+                        weight: Number(event.target.value),
+                      });
+                    }}
+                    type="number"
+                    value={malt.weight}
+                  />
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <TextField
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">EBC</InputAdornment>
+                      ),
+                    }}
+                    inputProps={{
+                      min: 1,
+                    }}
+                    label="Color"
+                    onChange={(event) => {
+                      updateMalt(index, {
+                        ...malt,
+                        ebc: Number(event.target.value),
+                      });
+                    }}
+                    type="number"
+                    value={malt.ebc}
+                  />
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <TextField
+                    fullWidth
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">%</InputAdornment>
+                      ),
+                    }}
+                    inputProps={{
+                      max: 100,
+                      min: 1,
+                      step: 0.1,
+                    }}
+                    label="Extract"
+                    onChange={(event) => {
+                      updateMalt(index, {
+                        ...malt,
+                        extract: Number(event.target.value),
+                      });
+                    }}
+                    type="number"
+                    value={malt.extract}
+                  />
+                </Grid>
+              </Grid>
+            </CardContent>
+            <CardActions>
+              <Button
+                color="secondary"
+                onClick={() => {
+                  removeMalt(index);
+                }}
+              >
+                Remove
+              </Button>
+            </CardActions>
+          </Card>
+        </Grid>
+      ))}
     </Grid>
   );
 };
