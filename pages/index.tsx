@@ -124,7 +124,11 @@ const Home: NextPage = () => {
           <Fermentation
             density={density}
             entries={fermentationEntries}
-            onEntriesChange={setFermentationEntries}
+            onEntriesChange={(entries) => {
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              setFermentationEntries(entries.sort((a, b) => a.date - b.date));
+            }}
           />
         </Grid>
       </Grid>
