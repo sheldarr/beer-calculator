@@ -78,10 +78,14 @@ const Malts: React.FunctionComponent<Props> = ({ malts, onMaltsChange }) => {
     onMaltsChange(newMalts);
   };
 
+  const maltsTotalWeight = malts.reduce((weight, malt) => {
+    return weight + malt.weight;
+  }, 0);
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <h2>Malts</h2>
+        <h2>Malts ({maltsTotalWeight.toFixed(2)}kg)</h2>
       </Grid>
       <Grid container item spacing={2} xs={12}>
         <Grid item md={4} sm={6} xs={10}>
@@ -186,6 +190,20 @@ const Malts: React.FunctionComponent<Props> = ({ malts, onMaltsChange }) => {
                     }}
                     type="number"
                     value={malt.extract}
+                  />
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <TextField
+                    disabled
+                    fullWidth
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">%</InputAdornment>
+                      ),
+                    }}
+                    label="Weight fraction"
+                    type="number"
+                    value={((malt.weight / maltsTotalWeight) * 100).toFixed(2)}
                   />
                 </Grid>
               </Grid>
