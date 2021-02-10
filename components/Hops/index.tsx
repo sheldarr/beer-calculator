@@ -93,10 +93,14 @@ const Hops: React.FunctionComponent<Props> = ({
     onHopsChange(newHops);
   };
 
+  const hopsTotalWeight = hops.reduce((weight, hop) => {
+    return weight + hop.weight;
+  }, 0);
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <h2>Hops</h2>
+        <h2>Hops ({hopsTotalWeight.toFixed(2)}g)</h2>
       </Grid>
       <Grid container item spacing={2} xs={12}>
         <Grid item md={4} sm={6} xs={10}>
@@ -200,6 +204,20 @@ const Hops: React.FunctionComponent<Props> = ({
                     }}
                     type="number"
                     value={hop.boilTime}
+                  />
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <TextField
+                    disabled
+                    fullWidth
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">%</InputAdornment>
+                      ),
+                    }}
+                    label="Weight fraction"
+                    type="number"
+                    value={((hop.weight / hopsTotalWeight) * 100).toFixed(2)}
                   />
                 </Grid>
               </Grid>
