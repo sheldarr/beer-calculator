@@ -53,7 +53,6 @@ const DillutionBoilOff: React.FunctionComponent<Props> = ({
             endAdornment: <InputAdornment position="end">°P</InputAdornment>,
           }}
           inputProps={{
-            max: density,
             min: 0,
             step: 0.1,
           }}
