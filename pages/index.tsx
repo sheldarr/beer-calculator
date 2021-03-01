@@ -11,7 +11,7 @@ import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 
-import useLocalStorageState from 'use-local-storage-state';
+import { useLocalStorageState } from 'use-local-storage-state';
 import { calculatePlatoToOg } from '../utils/unitConverters';
 import Abv from '../components/Abv';
 import DillutionBoilOff from '../components/DillutionBoilOff';
